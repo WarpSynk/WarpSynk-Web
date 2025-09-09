@@ -71,22 +71,15 @@ WarpDAO – Community-driven governance framework.
 
 SynkPass NFTs – 25,000 lifetime NFT passes tied to node access and governance.
 
-Community Channels – Discord, Telegram, Governance Forum.
+Community Channels; 
 
-
-Documentation
-
-Protocol Whitepaper
-
-Developer Docs
-
-API Reference
+Discord,Telegram, Governance Forum.
 
 
 Security
 
 Audited smart contracts for token, staking, and governance.
 
-Open bug bounty program (launching soon on WarpSynk.xyz/security).
+Open bug bounty program (launching soon on warpsynk.xyz/security).
 
 
