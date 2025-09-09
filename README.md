@@ -69,7 +69,7 @@ Community & Governance
 
 WarpDAO – Community-driven governance framework.
 
-SynkPass NFTs – 25,000 lifetime NFT passes tied to node access and governance.
+SynkPass NFTs – 500,000 lifetime NFT passes tied to node access and governance rights.
 
 Community Channels; 
 
