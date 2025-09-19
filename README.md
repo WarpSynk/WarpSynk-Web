@@ -80,6 +80,6 @@ Security
 
 Audited smart contracts for token, staking, and governance.
 
-Open bug bounty program (launching soon on warpsynk.xyz/security).
+Open bug bounty program (launching soon on https:warpsynk.xyz/security).
 
 
