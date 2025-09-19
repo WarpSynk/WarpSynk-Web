@@ -1,13 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Privacy Policy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - WarpSynk Protocol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #6a1b9a;
+            --secondary: #00ffaa;
+            --accent: #00b4ff;
+            --dark: #0a0a14;
+            --darker: #05050a;
+            --light: #f0f0f5;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--light);
+            line-height: 1.6;
+            background-color: var(--dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 170, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--light);
+        }
+
+        .logo img {
+            height: 30px;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 5px rgba(138, 43, 226, 0.7));
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+            transform: translateX(-5px);
+        }
+
+        .back-btn i {
+            margin-right: 8px;
+        }
+
+        .privacy-policy {
+            padding: 60px 0;
+        }
+
+        .policy-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .policy-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .policy-header p {
+            color: rgba(240, 240, 245, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .last-updated {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        .policy-content {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .policy-section {
+            margin-bottom: 40px;
+        }
+
+        .policy-section h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .policy-section h2 i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .policy-section p {
+            margin-bottom: 15px;
+            color: rgba(240, 240, 245, 0.9);
+        }
+
+        .policy-section ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .policy-section li {
+            margin-bottom: 8px;
+            color: rgba(240, 240, 245, 0.9);
+        }
+
+        .highlight {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .contact-info {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .contact-info h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background-color: rgba(5, 5, 10, 0.95);
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px rgba(138, 43, 226, 0.7));
+        }
+
+        .footer-logo p {
+            opacity: 0.7;
+            max-width: 300px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .link-group h4 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .link-group a {
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .link-group a:hover {
+            opacity: 1;
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .policy-content {
+                padding: 25px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                margin-top: 20px;
+                gap: 30px;
+            }
+            
+            .policy-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .policy-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Privacy Policy</h1>
-  <p>We respect your privacy. No personal data is collected without your consent.</p>
-  <p>Last updated: September 2025</p>
-  <a href="index.html">Back to Home</a>
+    <header>
+        <div class="container header-content">
+            <a href="index.html"
+                <span>WarpSynk</span>
+            </a>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </header>
+
+    <main class="privacy-policy">
+        <div class="container">
+            <div class="policy-header">
+                <h1>Privacy Policy</h1>
+                <p>At WarpSynk, we believe in data sovereignty and your right to control your personal information. This Privacy Policy explains how we handle data in our decentralized ecosystem.</p>
+                <div class="last-updated">Last Updated: January 1, 2025</div>
+            </div>
+
+            <div class="policy-content">
+                <div class="policy-section">
+                    <h2><i class="fas fa-info-circle"></i> Introduction</h2>
+                    <p>WarpSynk Protocol ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our decentralized data synchronization protocol, website, and services.</p>
+                    <p>As a Web3 project built on principles of data sovereignty, we strive to minimize data collection while providing a secure and efficient synchronization layer for Web2 and Web3 applications.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-database"></i> Information We Collect</h2>
+                    <p>In keeping with our data sovereignty principles, we collect minimal information:</p>
+                    <ul>
+                        <li><span class="highlight">Wallet Address:</span> When you interact with our protocol, we collect your wallet address for transaction purposes.</li>
+                        <li><span class="highlight">On-Chain Data:</span> We analyze public blockchain data related to protocol interactions.</li>
+                        <li><span class="highlight">Technical Information:</span> We may collect browser type, device type, and IP address (anonymized) for security and analytics purposes.</li>
+                        <li><span class="highlight">Communication Data:</span> If you contact us, we collect your email address and correspondence content.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-cogs"></i> How We Use Your Information</h2>
+                    <p>We use the information we collect for the following purposes:</p>
+                    <ul>
+                        <li>To provide, maintain, and improve our synchronization services</li>
+                        <li>To monitor and analyze protocol performance and usage patterns</li>
+                        <li>To prevent fraudulent activities and enhance security</li>
+                        <li>To communicate with you about protocol updates, security alerts, and support messages</li>
+                        <li>To enforce our terms of service and other policies</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-shield-alt"></i> Data Sovereignty Principles</h2>
+                    <p>As a data sovereignty-focused project, we adhere to these core principles:</p>
+                    <ul>
+                        <li><span class="highlight">User Control:</span> You maintain control over your data at all times</li>
+                        <li><span class="highlight">Transparency:</span> We clearly explain what data we collect and why</li>
+                        <li><span class="highlight">Minimization:</span> We collect only what is necessary for protocol operation</li>
+                        <li><span class="highlight">Decentralization:</span> Where possible, we avoid central points of data control</li>
+                        <li><span class="highlight">Security:</span> We implement robust security measures to protect your information</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-exchange-alt"></i> Data Sharing and Disclosure</h2>
+                    <p>We do not sell your personal information. We may share information in the following circumstances:</p>
+                    <ul>
+                        <li>With service providers who assist in protocol operation (under strict data protection terms)</li>
+                        <li>When required by law or to respond to legal process</li>
+                        <li>To protect the rights and property of WarpSynk, our users, or the public</li>
+                        <li>In connection with any merger, sale of company assets, or acquisition</li>
+                    </ul>
+                    <p>All shared data is minimized and anonymized where possible.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-lock"></i> Data Security</h2>
+                    <p>We implement appropriate technical and organizational measures to protect your information, including:</p>
+                    <ul>
+                        <li>Encryption of data in transit and at rest</li>
+                        <li>Regular security assessments and audits</li>
+                        <li>Access controls limiting who can access user information</li>
+                        <li>Smart contract audits and bug bounty programs</li>
+                    </ul>
+                    <p>However, no security system is impenetrable, and we cannot guarantee the absolute security of your information.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-globe"></i> International Data Transfers</h2>
+                    <p>As a decentralized protocol with global operations, your information may be transferred to and processed in countries other than your own. These countries may have data protection laws that differ from your country's laws.</p>
+                    <p>When we transfer data across borders, we implement safeguards such as standard contractual clauses to ensure your data remains protected.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-cookie"></i> Cookies and Tracking Technologies</h2>
+                    <p>We use cookies and similar tracking technologies to track activity only on our website and hold certain information. Cookies are files with a small amount of data that may include an anonymous unique identifier.</p>
+                    <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our website.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-user"></i> Your Data Rights</h2>
+                    <p>Depending on your jurisdiction, you may have the following rights regarding your personal information:</p>
+                    <ul>
+                        <li><span class="highlight">Access:</span> The right to know what personal information we hold about you</li>
+                        <li><span class="highlight">Correction:</span> The right to have inaccurate information corrected</li>
+                        <li><span class="highlight">Deletion:</span> The right to have your personal information deleted</li>
+                        <li><span class="highlight">Portability:</span> The right to receive your data in a structured, machine-readable format</li>
+                        <li><span class="highlight">Objection:</span> The right to object to certain processing activities</li>
+                    </ul>
+                    <p>To exercise these rights, please contact us using the information provided below.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-child"></i> Children's Privacy</h2>
+                    <p>Our services are not intended for children under the age of 16. We do not knowingly collect personal information from children under 16. If we become aware that we have collected personal information from a child under 16, we will take steps to delete such information.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2><i class="fas fa-pencil-alt"></i> Changes to This Privacy Policy</h2>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+                    <p>We encourage you to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <p>If you have any questions about this Privacy Policy or our data practices, please contact us:</p>
+                    <ul>
+                        <li>Email: hello@warpsynk.xyz</li>
+                  
+                        <li>Governance Forum: govern.warpsynk.xyz</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <p>Universal Decentralized Sync Layer for Web2 and Web3</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Protocol</h4>
+                        <a href="#">SynkPaper</a>
+                        <a href="#">GitHub</a>
+                        <a href="#">Audits</a>
+                        <a href="#">Roadmap</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Legal</h4>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+            
+                    </div>
+                    <div class="link-group">
+                        <h4>Community</h4>
+                        <a href="#">Discord</a>
+                        <a href="https://x.com/WarpSynk">Twitter</a>
+                        <a href="https://t.me/WarpSynk">Telegram</a>
+                        <a href="warpsynk.medium.com">Medium</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 WarpSynk Labs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
