@@ -73,7 +73,7 @@ SynkPass NFTs – 500,000 lifetime NFT passes tied to node access and governance
 
 Community Channels; 
 
-Discord,Telegram, Governance Forum.
+Discord (coming soon),Telegram, pre-WarpDAO Governance Forum.
 
 
 Security
