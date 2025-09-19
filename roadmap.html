@@ -80,7 +80,7 @@
         }
 
         /* Improved touch targets for mobile */
-        a, button, input[type="checkbox"] {
+        a, button {
             min-height: 44px;
             min-width: 44px;
         }
@@ -330,45 +330,39 @@
             background-color: rgba(138, 43, 226, 0.2);
         }
 
-        .checklist-item input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
+        .checklist-checkbox {
             width: 22px;
             height: 22px;
             border: 2px solid var(--primary);
             border-radius: var(--radius-sm);
             margin-right: var(--space-md);
             position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .checklist-item input[type="checkbox"]:checked {
+        .checklist-checkbox.checked {
             background-color: var(--primary);
             border-color: var(--primary);
         }
 
-        .checklist-item input[type="checkbox"]:checked::after {
+        .checklist-checkbox.checked::after {
             content: '✓';
-            position: absolute;
             color: white;
             font-size: var(--text-sm);
             font-weight: bold;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
         }
 
-        .checklist-item label {
+        .checklist-label {
             flex: 1;
-            cursor: pointer;
             color: rgba(240, 240, 245, 0.9);
             line-height: 1.4;
             padding: var(--space-xs) 0;
         }
 
-        .checklist-item input[type="checkbox"]:checked + label {
+        .checklist-checkbox.checked + .checklist-label {
             color: var(--secondary);
             text-decoration: line-through;
         }
@@ -576,13 +570,13 @@
                 padding: var(--space-xs);
             }
             
-            .checklist-item input[type="checkbox"] {
+            .checklist-checkbox {
                 width: 20px;
                 height: 20px;
                 margin-right: var(--space-sm);
             }
             
-            .checklist-item label {
+            .checklist-label {
                 font-size: var(--text-sm);
             }
         }
@@ -732,24 +726,24 @@
                         <div class="checklist">
                             <h4>Key Deliverables</h4>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task1-1" checked>
-                                <label for="task1-1">Market research and problem validation</label>
+                                <div class="checklist-checkbox checked"></div>
+                                <div class="checklist-label">Market research and problem validation</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task1-2" checked>
-                                <label for="task1-2">Core protocol architecture design</label>
+                                <div class="checklist-checkbox checked"></div>
+                                <div class="checklist-label">Core protocol architecture design</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task1-3" checked>
-                                <label for="task1-3">Proof of Sync consensus mechanism design</label>
+                                <div class="checklist-checkbox checked"></div>
+                                <div class="checklist-label">Proof of Sync consensus mechanism design and testing in a closed Developer Environment</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task1-4" checked>
-                                <label for="task1-4">Initial technical whitepaper</label>
+                                <div class="checklist-checkbox checked"></div>
+                                <div class="checklist-label">Initial technical whitepaper(synkpaper)</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task1-5" checked>
-                                <label for="task1-5">First prototype implementation</label>
+                                <div class="checklist-checkbox checked"></div>
+                                <div class="checklist-label">First prototype implementation</div>
                             </div>
                         </div>
                     </div>
@@ -761,33 +755,21 @@
                         <span class="progress-status status-inprogress">In Progress</span>
                         <div class="milestone-icon">2</div>
                         <h3>Test-mode Launch</h3>
-                        <p>SynkPass NFT distribution, early partner onboarding, and public testnet activation</p>
+                        <p>Steward Founders NFT minting, testnet development, and initial community building</p>
                         
                         <div class="checklist">
                             <h4>Key Deliverables</h4>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task2-1" checked>
-                                <label for="task2-1">SynkPass NFT minting platform development</label>
+                                <div class="checklist-checkbox checked"></div>
+                                <div class="checklist-label">Steward Founders NFT minting</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task2-2" checked>
-                                <label for="task2-2">First community airdrop distribution</label>
+                                <div class="checklist-checkbox checked"></div>
+                                <div class="checklist-label">Testnet node software development</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task2-3" checked>
-                                <label for="task2-3">Testnet node software development</label>
-                            </div>
-                            <div class="checklist-item">
-                                <input type="checkbox" id="task2-4">
-                                <label for="task2-4">Public testnet launch</label>
-                            </div>
-                            <div class="checklist-item">
-                                <input type="checkbox" id="task2-5">
-                                <label for="task2-5">First external security audit</label>
-                            </div>
-                            <div class="checklist-item">
-                                <input type="checkbox" id="task2-6">
-                                <label for="task2-6">Early partner integrations</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Steward Founders NFTs minting (not yet done)</div>
                             </div>
                         </div>
                     </div>
@@ -799,33 +781,57 @@
                         <span class="progress-status status-upcoming">Upcoming</span>
                         <div class="milestone-icon">3</div>
                         <h3>Token Generation Event</h3>
-                        <p>$WSYNK token launch, mainnet activation, and initial exchange listings</p>
+                        <p>$WSYNK token launch, mainnet activation and initial exchange listings</p>
                         
                         <div class="checklist">
                             <h4>Key Deliverables</h4>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task3-1">
-                                <label for="task3-1">Tokenomics finalization</label>
+                                <div class="checklist-checkbox"></div>
+                                    <div class="checklist-label">Steward Founders pre-WarpDAO governance formation</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task3-2">
-                                <label for="task3-2">$WSYNK token contract deployment</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Tokenomics finalization</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task3-3">
-                                <label for="task3-3">Token sale and public distribution</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">$WSYNK token contract deployment</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task3-4">
-                                <label for="task3-4">Mainnet launch</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Token minting and snapshot</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task3-5">
-                                <label for="task3-5">Initial exchange listings</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Mainnet launch</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task3-6">
-                                <label for="task3-6">Node operator onboarding program</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Initial exchange listings</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Node operator onboarding program</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">SynkPass NFT minting</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Public testnet launch</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">First external security audit by Certik</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Early partner integrations</div>
+                            </div>
+                            <div class="checklist-item">
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">First community airdrop distribution</div>
                             </div>
                         </div>
                     </div>
@@ -842,28 +848,28 @@
                         <div class="checklist">
                             <h4>Key Deliverables</h4>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task4-1">
-                                <label for="task4-1">DAO governance implementation</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">DAO governance implementation</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task4-2">
-                                <label for="task4-2">Multi-chain expansion (Ethereum, Polygon, etc.)</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Multi-chain expansion (Ethereum, Polygon, BSC, SUI, TON, Avalancheetc.)</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task4-3">
-                                <label for="task4-3">Enterprise-grade SDK releases</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Enterprise-grade SDK releases</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task4-4">
-                                <label for="task4-4">Global marketing and adoption campaigns</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Global marketing and massive adoption campaigns</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task4-5">
-                                <label for="task4-5">Mobile app development</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Decentralized Data Marketplace development</div>
                             </div>
                             <div class="checklist-item">
-                                <input type="checkbox" id="task4-6">
-                                <label for="task4-6">Protocol v2.0 development</label>
+                                <div class="checklist-checkbox"></div>
+                                <div class="checklist-label">Protocol v2.0 development</div>
                             </div>
                         </div>
                     </div>
@@ -899,12 +905,9 @@
                     timeframe: "Q3 2025",
                     status: "inprogress",
                     tasks: [
-                        { id: "task2-1", label: "SynkPass NFT minting platform development", completed: true },
-                        { id: "task2-2", label: "First community airdrop distribution", completed: true },
-                        { id: "task2-3", label: "Testnet node software development", completed: true },
-                        { id: "task2-4", label: "Public testnet launch", completed: false },
-                        { id: "task2-5", label: "First external security audit", completed: false },
-                        { id: "task2-6", label: "Early partner integrations", completed: false }
+                        { id: "task2-1", label: "Steward Founders NFT minting platform", completed: true },
+                        { id: "task2-2", label: "Testnet node software development", completed: true },
+                        { id: "task2-3", label: "Steward Founders NFT minting (not yet done)", completed: false }
                     ]
                 },
                 {
@@ -913,21 +916,27 @@
                     timeframe: "Q4 2025 - Q1 2026",
                     status: "upcoming",
                     tasks: [
-                        { id: "task3-1", label: "Tokenomics finalization", completed: false },
-                        { id: "task3-2", label: "$WSYNK token contract deployment", completed: false },
-                        { id: "task3-3", label: "Token sale and public distribution", completed: false },
-                        { id: "task3-4", label: "Mainnet launch", completed: false },
-                        { id: "task3-5", label: "Initial exchange listings", completed: false },
-                        { id: "task3-6", label: "Node operator onboarding program", completed: false }
+                        { id: "task3-1", label: "Steward Founders pre-WarpDAO governance formation", completed: false },
+                        { id: "task3-2", label: "Tokenomics finalization", completed: false },
+                        { id: "task3-3", label: "$WSYNK token contract deployment", completed: false },
+                        { id: "task3-4", label: "Token sale and public distribution", completed: false },
+                        { id: "task3-5", label: "Mainnet launch", completed: false },
+                        { id: "task3-6", label: "Initial exchange listings", completed: false },
+                        { id: "task3-7", label: "Node operator onboarding program", completed: false },
+                        { id: "task3-8", label: "SynkPass NFT minting", completed: false },
+                        { id: "task3-9", label: "Public testnet launch", completed: false },
+                        { id: "task3-10", label: "First external security audit by Certik", completed: false },
+                        { id: "task3-11", label: "Early partner integrations", completed: false },
+                        { id: "task3-12", label: "First community airdrop distribution", completed: false }
                     ]
                 },
                 {
                     id: "phase4",
                     title: "Full Decentralization",
-                    timeframe: "Q2 2026 - Q1 2027",
+                    timeframe: "Q2 2026 - Q4 2027",
                     status: "upcoming",
                     tasks: [
-                        { id: "task4-1", label: "DAO governance implementation", completed: false },
+                        { id: "task4-1", label: "Warp-DAO governance implementation", completed: false },
                         { id: "task4-2", label: "Multi-chain expansion (Ethereum, Polygon, etc.)", completed: false },
                         { id: "task4-3", label: "Enterprise-grade SDK releases", completed: false },
                         { id: "task4-4", label: "Global marketing and adoption campaigns", completed: false },
@@ -940,23 +949,7 @@
 
         // Initialize the roadmap
         document.addEventListener('DOMContentLoaded', function() {
-            // Set up checkboxes based on roadmap data
-            roadmapData.phases.forEach(phase => {
-                phase.tasks.forEach(task => {
-                    const checkbox = document.getElementById(task.id);
-                    if (checkbox) {
-                        checkbox.checked = task.completed;
-                        
-                        // Add event listener to update data when checkbox changes
-                        checkbox.addEventListener('change', function() {
-                            task.completed = this.checked;
-                            updateProgress();
-                        });
-                    }
-                });
-            });
-
-            // Initial progress update
+            // Update progress based on roadmap data
             updateProgress();
         });
 
