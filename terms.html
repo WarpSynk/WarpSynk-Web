@@ -1,13 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Terms of Use</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - WarpSynk Protocol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #6a1b9a;
+            --secondary: #00ffaa;
+            --accent: #00b4ff;
+            --dark: #0a0a14;
+            --darker: #05050a;
+            --light: #f0f0f5;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--light);
+            line-height: 1.6;
+            background-color: var(--dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 170, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--light);
+        }
+
+        .logo img {
+            height: 30px;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 5px rgba(138, 43, 226, 0.7));
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+            transform: translateX(-5px);
+        }
+
+        .back-btn i {
+            margin-right: 8px;
+        }
+
+        .terms-of-service {
+            padding: 60px 0;
+        }
+
+        .terms-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .terms-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .terms-header p {
+            color: rgba(240, 240, 245, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .last-updated {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        .terms-content {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .terms-section {
+            margin-bottom: 40px;
+        }
+
+        .terms-section h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .terms-section h2 i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .terms-section p {
+            margin-bottom: 15px;
+            color: rgba(240, 240, 245, 0.9);
+        }
+
+        .terms-section ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .terms-section li {
+            margin-bottom: 8px;
+            color: rgba(240, 240, 245, 0.9);
+        }
+
+        .highlight {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .note-box {
+            background: rgba(0, 180, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .warning-box {
+            background: rgba(255, 61, 113, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--danger);
+        }
+
+        .contact-info {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .contact-info h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background-color: rgba(5, 5, 10, 0.95);
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 5px rgba(138, 43, 226, 0.7));
+        }
+
+        .footer-logo p {
+            opacity: 0.7;
+            max-width: 300px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .link-group h4 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .link-group a {
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .link-group a:hover {
+            opacity: 1;
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .terms-content {
+                padding: 25px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                margin-top: 20px;
+                gap: 30px;
+            }
+            
+            .terms-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .terms-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Terms of Use</h1>
-  <p>By using this site, you agree to use it responsibly. Content is provided as is.</p>
-  <p>Last updated: September 2025</p>
-  <a href="index.html">Back to Home</a>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <img src="will fix it ">
+                <span>WarpSynk</span>
+            </a>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </header>
+
+    <main class="terms-of-service">
+        <div class="container">
+            <div class="terms-header">
+                <h1>Terms of Service</h1>
+                <p>These Terms of Service govern your use of WarpSynk Protocol, a decentralized data synchronization layer for Web2 and Web3 applications built on Solana.</p>
+                <div class="last-updated">Last Updated: January 1, 2025</div>
+            </div>
+
+            <div class="terms-content">
+                <div class="terms-section">
+                    <h2><i class="fas fa-gavel"></i> 1. Agreement to Terms</h2>
+                    <p>By accessing or using WarpSynk Protocol ("we," "our," or "us"), you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, you may not access or use our services.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-info-circle"></i> 2. Definitions</h2>
+                    <ul>
+                        <li><span class="highlight">Protocol:</span> The WarpSynk decentralized synchronization layer and associated smart contracts.</li>
+                        <li><span class="highlight">SynkNodes:</span> Decentralized data nodes that power the WarpSynk network.</li>
+                        <li><span class="highlight">$WSYNK:</span> The native utility token of the WarpSynk ecosystem.</li>
+                        <li><span class="highlight">User:</span> Any individual or entity accessing or using our Services.</li>
+                        <li><span class="highlight">Data Sovereignty:</span> The principle that data is subject to the laws of the country where it is located.</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-user-check"></i> 3. Eligibility</h2>
+                    <p>To use our Services, you must:</p>
+                    <ul>
+                        <li>Be at least 18 years of age or the age of majority in your jurisdiction</li>
+                        <li>Have the legal capacity to enter into binding contracts</li>
+                        <li>Not be barred from receiving Services under applicable laws</li>
+                    </ul>
+                    <div class="note-box">
+                        <p><strong>Note:</strong> Some Services may require you to create an account, connect a wallet, or register a node. You are responsible for maintaining the confidentiality of your account credentials.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-cogs"></i> 4. Services Description</h2>
+                    <p>WarpSynk Protocol provides a decentralized synchronization layer that enables:</p>
+                    <ul>
+                        <li>Real-time data synchronization across blockchains, platforms and applications</li>
+                        <li>Secure, encrypted data transfer through SynkMesh networks</li>
+                        <li>Node operation opportunities for network participants</li>
+                        <li>Token utility through the $WSYNK token ecosystem</li>
+                    </ul>
+                    <p>We reserve the right to modify, suspend, or discontinue any part of our Services at any time.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-check-circle"></i> 5. Acceptable Use</h2>
+                    <p><span class="highlight">You Agree To:</span></p>
+                    <ul>
+                        <li>Use the Services only for lawful purposes</li>
+                        <li>Comply with all applicable laws and regulations</li>
+                        <li>Maintain the security of your account and synk & validator nodes</li>
+                        <li>Respect the intellectual property rights of others</li>
+                    </ul>
+                    
+                    <p><span class="highlight">You Agree Not To:</span></p>
+                    <ul>
+                        <li>Violate any applicable laws or regulations</li>
+                        <li>Engage in hacking, fake syncing, phishing, or other malicious activities</li>
+                        <li>Disrupt the integrity or performance of our Services</li>
+                        <li>Use the Services to transmit harmful code or malware</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-balance-scale"></i> 6. Intellectual Property</h2>
+                    <p><span class="highlight">Our Intellectual Property:</span> All content, trademarks, logos, and software associated with our Services are owned by or licensed to WarpSynk Protocol of WarpSynk Labs, Switzerland. You are granted a limited, non-exclusive, non-transferable license to access and use our Services.</p>
+                    
+                    <p><span class="highlight">Your Content:</span> You retain ownership of any data you synchronize through our Protocol. By using our Services, you grant us a royalty-free, worldwide license to use, reproduce, and display such content solely for providing and improving our Services.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-coins"></i> 7. Tokenomics and $WSYNK Token</h2>
+                    <p><span class="highlight">Utility:</span> The $WSYNK token is a utility token designed for:</p>
+                    <ul>
+                        <li>Node staking and operation rewards</li>
+                        <li>Governance voting within the WarpSynk ecosystem</li>
+                        <li>Payment for premium synchronization features</li>
+                        <li>Protocol fee settlements</li>
+                    </ul>
+                    
+                    <div class="warning-box">
+                        <p><strong>Disclaimer:</strong> $WSYNK is a utility token and <strong>not</strong> a security. It is not intended for investment purposes. We make no guarantees regarding its value or performance.</p>
+                    </div>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-server"></i> 8. Node Operation</h2>
+                    <p><span class="highlight">SynkNode Responsibilities:</span> If you operate a SynkNode, you agree to:</p>
+                    <ul>
+                        <li>Maintain adequate hardware and bandwidth requirements</li>
+                        <li>Keep your node software updated</li>
+                        <li>Adhere to network consensus rules</li>
+                        <li>Not engage in malicious or disruptive behavior including but not limited to fake syncing, protocol misuse.</li>
+                    </ul>
+                    
+                    <p><span class="highlight">Rewards and Slashing:</span> Node operators may earn $WSYNK rewards for validating and propagating data. Malicious behavior may result in "slashing" (loss of staked tokens).</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-shield-alt"></i> 9. Data Sovereignty and Privacy</h2>
+                    <p><span class="highlight">Our Commitment:</span> We adhere to data sovereignty principles, meaning:</p>
+                    <ul>
+                        <li>Data is subject to the laws of the country where it is physically located</li>
+                        <li>We implement appropriate technical measures to protect user data</li>
+                        <li>We comply with applicable data protection regulations (e.g., GDPR, CCPA)</li>
+                    </ul>
+                    
+                    <p><span class="highlight">Your Responsibilities:</span> You are responsible for ensuring that the data you synchronize complies with applicable laws and regulations.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-exclamation-triangle"></i> 10. Disclaimer of Warranties</h2>
+                    <p>Our Services are provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that our Services will be uninterrupted, error-free, or secure.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-balance-scale-left"></i> 11. Limitation of Liability</h2>
+                    <p>To the fullest extent permitted by law, WarpSynk Protocol shall not be liable for:</p>
+                    <ul>
+                        <li>Any indirect, incidental, or consequential damages</li>
+                        <li>Loss of profits, data, or business opportunities</li>
+                        <li>Damages arising from your use or inability to use our Services</li>
+                        <li>Security breaches not directly caused by our negligence</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-handshake"></i> 12. Indemnification</h2>
+                    <p>You agree to indemnify and hold harmless WarpSynk Protocol, its affiliates, and their respective officers from any claims, damages, or expenses arising from your use of our Services or violation of these Terms.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-globe"></i> 13. Governing Law</h2>
+                    <p>These Terms shall be governed by the laws of Singapore, without regard to its conflict of law principles. Any disputes shall be resolved through binding arbitration in Zug, Switzerland.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2><i class="fas fa-pencil-alt"></i> 14. Changes to Terms</h2>
+                    <p>We may update these Terms from time to time. We will notify you of material changes by posting the updated Terms on our website. Your continued use of our Services after such changes constitutes acceptance of the new Terms.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <p>If you have any questions about these Terms of Service, please contact us:</p>
+                    <ul>
+                        <li>Email: hello@warpsynk.xyz</li>
+                        <li>Discord: WarpSynk Legal Channel</li>
+                        <li>Governance Forum: govern.warpsynk.xyz</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div
+                    <p>Universal Decentralized Sync Layer for Web2 and Web3</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Protocol</h4>
+                        <a href="litepaper.html">SynkPaper</a>
+                        <a href="#">GitHub</a>
+                        <a href="#">Audits</a>
+                        <a href="roadmap.html">Roadmap</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Legal</h4>
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="terms.html">Terms of Service</a>
+                       
+                    </div>
+                    <div class="link-group">
+                        <h4>Community</h4>
+                        <a href="#">Discord</a>
+                        <a href="https://x.com/WarpSynk">X/Twitter</a>
+                        <a href="https://t.me/WarpSynk">Telegram</a>
+                        <a href="https://medium.warpsynk.com">Medium</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 WarpSynk Labs. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript to handle back to top functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add highlight effect when scrolling to sections
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all section elements
+            document.querySelectorAll('.terms-section').forEach(section => {
+                section.style.opacity = 0;
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
