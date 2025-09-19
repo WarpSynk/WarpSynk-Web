@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WarpSynk Protocol - FAQ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #6a1b9a;
+            --secondary: #00ffaa;
+            --accent: #00b4ff;
+            --dark: #0a0a14;
+            --darker: #05050a;
+            --light: #f0f0f5;
+            --gray: #6c757d;
+            --success: #00e676;
+            --warning: #ffc107;
+            --danger: #ff3d71;
+            --info: #00b4ff;
+            
+            --glow-primary: 0 0 10px rgba(138, 43, 226, 0.7);
+            --glow-secondary: 0 0 10px rgba(0, 255, 170, 0.5);
+            --glow-accent: 0 0 10px rgba(0, 180, 255, 0.5);
+            
+            /* Spacing variables */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            
+            /* Font sizes */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-md: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-xxl: 1.5rem;
+            --text-xxxl: 2rem;
+            --text-heading: 2.5rem;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--light);
+            line-height: 1.6;
+            background-color: var(--dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 170, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-md);
+        }
+
+        /* Improved touch targets for mobile */
+        a, button {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            flex: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: var(--space-xl) 0 var(--space-lg);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            margin-bottom: var(--space-lg);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: var(--space-sm) var(--space-md);
+        }
+
+        .back-btn:hover {
+            color: var(--light);
+            transform: translateX(-5px);
+        }
+
+        .back-btn i {
+            margin-right: var(--space-sm);
+        }
+
+        h1 {
+            font-size: var(--text-heading);
+            margin-bottom: var(--space-md);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: var(--text-lg);
+            color: rgba(240, 240, 245, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* FAQ Sections */
+        .faq-container {
+            padding: var(--space-lg) 0 var(--space-xxl);
+        }
+
+        .faq-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .faq-section h2 {
+            color: var(--secondary);
+            margin-bottom: var(--space-lg);
+            font-size: var(--text-xxl);
+            position: relative;
+            display: inline-block;
+            padding-bottom: var(--space-xs);
+        }
+
+        .faq-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .faq-item {
+            margin-bottom: var(--space-md);
+            background-color: rgba(20, 20, 30, 0.8);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(138, 43, 226, 0.5);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+        }
+
+        .faq-question {
+            background: none;
+            border: none;
+            outline: none;
+            width: 100%;
+            text-align: left;
+            padding: var(--space-lg);
+            font-size: var(--text-lg);
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--secondary);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            color: rgba(240, 240, 245, 0.9);
+            background-color: rgba(30, 30, 40, 0.5);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: var(--space-lg);
+        }
+
+        .faq-answer ul {
+            padding-left: var(--space-lg);
+            margin: var(--space-md) 0;
+        }
+
+        .faq-answer li {
+            margin-bottom: var(--space-xs);
+        }
+
+        /* Search */
+        .search-container {
+            margin-bottom: var(--space-xl);
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            background-color: rgba(20, 20, 30, 0.8);
+            color: var(--light);
+            font-size: var(--text-md);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            padding-right: 60px; /* Make space for the search button */
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .search-box::placeholder {
+            color: rgba(240, 240, 245, 0.6);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            padding: var(--space-sm);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            color: var(--light);
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+
+        /* Clear search button */
+        .clear-search {
+            position: absolute;
+            right: 50px;
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            padding: var(--space-sm);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-search:hover {
+            color: var(--light);
+            background-color: rgba(255, 61, 113, 0.1);
+        }
+
+        .clear-search.visible {
+            display: flex;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: var(--space-xl) 0;
+            color: rgba(240, 240, 245, 0.7);
+            font-size: var(--text-sm);
+            margin-top: auto;
+        }
+
+        /* No results message */
+        .no-results {
+            text-align: center;
+            padding: var(--space-xl);
+            color: rgba(240, 240, 245, 0.7);
+            display: none;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            :root {
+                --text-heading: 2rem;
+                --text-xxl: 1.25rem;
+            }
+            
+            body {
+                padding: var(--space-sm);
+            }
+            
+            header {
+                padding: var(--space-lg) 0 var(--space-md);
+            }
+            
+            .faq-question {
+                padding: var(--space-md);
+                font-size: var(--text-md);
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: var(--space-md);
+            }
+            
+            .search-box {
+                padding: var(--space-md);
+                padding-right: 50px;
+            }
+            
+            .search-btn {
+                right: 8px;
+            }
+            
+            .clear-search {
+                right: 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --text-heading: 1.75rem;
+            }
+            
+            .faq-question {
+                font-size: var(--text-sm);
+            }
+            
+            .faq-answer {
+                font-size: var(--text-sm);
+            }
+            
+            .search-box {
+                padding-right: 45px;
+            }
+            
+            .clear-search {
+                right: 40px;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Main Site
+            </a>
+            <h1>WarpSynk Protocol FAQ</h1>
+            <p class="subtitle">Find answers to common questions about WarpSynk Protocol, SynkPass NFTs, $WSYNK tokens, and more</p>
+        </header>
+
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Search FAQs..." id="faq-search">
+            <button class="clear-search" id="clear-search" aria-label="Clear search">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="search-btn" id="search-btn" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-section">
+                <h2>General</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is WarpSynk Protocol?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        WarpSynk is a decentralized protocol that gives people control of their digital identity, data, and value. It uses SynkPass NFTs, $WSYNK tokens, SynkNodes, and SynkMesh infrastructure to power identity, data sync, and creator economies.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Who owns WarpSynk Protocol?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        No single entity owns it. The protocol is community-driven, governed by stewards and a global DAO.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What problems does WarpSynk solve?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        It solves three major issues:
+                        <ul>
+                            <li>Centralized ownership of identity and data</li>
+                            <li>Lack of fair economic value distribution in digital ecosystems</li>
+                            <li>Fragmentation across platforms, chains, and devices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Identity</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is a SynkPass NFT?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        It's your on-chain digital ID. It proves ownership, grants access, and links your activity across dApps, games, and social platforms.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I transfer my SynkPass NFT?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        No. It is soulbound to your wallet to maintain authenticity and security.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I get a SynkID?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        You mint a SynkPass NFT, which generates your SynkID automatically.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Data Sync</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is WarpSynk Data Synk?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        It keeps your data, assets, and states synchronized across blockchains, devices, and applications using SolPg on Solana.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is SynkMesh?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        A peer-to-peer infrastructure layer of SynkNodes that distribute and verify synchronized data.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What are SynkNodes?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Community-run nodes that store, verify, and propagate data. Running a SynkNode requires a SynkID.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Token and Economy</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is the $WSYNK token used for?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>Transaction fees within the protocol</li>
+                            <li>Staking for governance and rewards</li>
+                            <li>Payments in creator and community economies</li>
+                            <li>Incentives for running SynkNodes</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I earn $WSYNK?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>By contributing to the protocol as a steward or node operator</li>
+                            <li>By engaging in community projects and creator economies</li>
+                            <li>Through airdrops tied to XP systems</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is $WSYNK deflationary?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        A portion of fees is burned to reduce supply over time.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Governance</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Who are WarpSynk Stewards?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        They are protocol contributors who guide development, propose changes, and secure the ecosystem.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How does governance work?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Stewards and community members vote on proposals using $WSYNK.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What incentives do stewards get?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Reputation, governance power, and protocol rewards.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Developers</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can developers build on WarpSynk?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. WarpSynk provides APIs and SDKs for integrating identity, data sync, and payments into apps, games, and social platforms.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Which tech stack powers WarpSynk?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Solana for speed, SolPg for programmable data sync, and SynkMesh for distributed verification.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Launch and Access</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I join WarpSynk?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Mint a SynkPass NFT, claim your SynkID, and connect to supported dApps.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Where will $WSYNK launch?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Through Gempad presale, followed by listings on DEXs and later CEXs.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is there an airdrop?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. Early XP contributors and node testers get mapped to airdrop allocations.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Security and Privacy</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How secure is my data?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Data is encrypted, verified by SynkNodes, and never controlled by a single party.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What if I lose my wallet?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        You lose access to your SynkPass NFT. You should secure your seed phrase and use recovery options available in non-custodial wallets.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is WarpSynk GDPR-compliant?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. Users have full ownership and control of their data, with the right to revoke access at any time.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Future</h2>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What features are coming next?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>Expanded SynkMesh infrastructure</li>
+                            <li>Multi-chain integrations for gaming and social apps</li>
+                            <li>New creator economy tools</li>
+                            <li>Full DAO governance rollout</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I contribute?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        You can join as a steward, run a SynkNode, participate in governance, or build dApps on top of the protocol.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="no-results">
+            <h3>No results found</h3>
+            <p>Try different keywords or browse the categories above</p>
+        </div>
+
+        <footer>
+            <p>© 2025 WarpSynk Labs. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // FAQ functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            const searchInput = document.getElementById('faq-search');
+            const searchBtn = document.getElementById('search-btn');
+            const clearSearchBtn = document.getElementById('clear-search');
+            const noResults = document.getElementById('no-results');
+            
+            // Toggle FAQ items
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    if (!item.classList.contains('active')) {
+                        faqItems.forEach(otherItem => {
+                            if (otherItem !== item) {
+                                otherItem.classList.remove('active');
+                            }
+                        });
+                    }
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Search functionality
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                let resultsFound = false;
+                
+                // Show/hide clear button based on input
+                if (searchTerm.length > 0) {
+                    clearSearchBtn.classList.add('visible');
+                } else {
+                    clearSearchBtn.classList.remove('visible');
+                }
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                        resultsFound = true;
+                        
+                        // Auto-expand matching items
+                        if (searchTerm.length > 2) {
+                            item.classList.add('active');
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Show/hide sections based on visible items
+                document.querySelectorAll('.faq-section').forEach(section => {
+                    const visibleItems = section.querySelectorAll('.faq-item[style="display: block"]');
+                    section.style.display = visibleItems.length ? 'block' : 'none';
+                });
+                
+                // Show no results message if needed
+                noResults.style.display = resultsFound ? 'none' : 'block';
+            }
+            
+            // Search input event
+            searchInput.addEventListener('input', performSearch);
+            
+            // Search button click event - focuses on input
+            searchBtn.addEventListener('click', () => {
+                searchInput.focus();
+            });
+            
+            // Clear search button
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearSearchBtn.classList.remove('visible');
+                performSearch();
+                
+                // Show all sections and items again
+                document.querySelectorAll('.faq-section').forEach(section => {
+                    section.style.display = 'block';
+                });
+                
+                faqItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.remove('active');
+                });
+                
+                noResults.style.display = 'none';
+            });
+            
+            // Open first item by default on mobile for better UX
+            if (window.innerWidth < 768) {
+                faqItems[0].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
