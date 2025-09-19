@@ -1,1 +1,992 @@
-coming soon
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WarpSynk Protocol - Roadmap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #6a1b9a;
+            --secondary: #00ffaa;
+            --accent: #00b4ff;
+            --dark: #0a0a14;
+            --darker: #05050a;
+            --light: #f0f0f5;
+            --gray: #6c757d;
+            --success: #00e676;
+            --warning: #ffc107;
+            --danger: #ff3d71;
+            --info: #00b4ff;
+            
+            --glow-primary: 0 0 10px rgba(138, 43, 226, 0.7);
+            --glow-secondary: 0 0 10px rgba(0, 255, 170, 0.5);
+            --glow-accent: 0 0 10px rgba(0, 180, 255, 0.5);
+            
+            /* Spacing variables */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            
+            /* Font sizes */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-md: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-xxl: 1.5rem;
+            --text-xxxl: 2rem;
+            --text-heading: 2.5rem;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            /* Prevent font scaling in landscape while keeping zoom functionality */
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--light);
+            line-height: 1.6;
+            background-color: var(--dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 170, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-md);
+        }
+
+        /* Improved touch targets for mobile */
+        a, button, input[type="checkbox"] {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            flex: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: var(--space-xl) 0 var(--space-lg);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            margin-bottom: var(--space-lg);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: var(--space-sm) var(--space-md);
+        }
+
+        .back-btn:hover {
+            color: var(--light);
+            transform: translateX(-5px);
+        }
+
+        .back-btn i {
+            margin-right: var(--space-sm);
+        }
+
+        h1 {
+            font-size: var(--text-heading);
+            margin-bottom: var(--space-md);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: var(--text-lg);
+            color: rgba(240, 240, 245, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Progress Summary */
+        .progress-summary {
+            background-color: rgba(20, 20, 30, 0.8);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-xl) auto;
+            max-width: 800px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .progress-summary h2 {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            color: var(--light);
+            font-size: var(--text-xxl);
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: rgba(30, 30, 40, 0.7);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: var(--space-lg);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-md);
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .stat-item {
+            padding: var(--space-md);
+            min-width: 120px;
+        }
+
+        .stat-value {
+            font-size: var(--text-xxxl);
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: var(--space-xs);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            color: rgba(240, 240, 245, 0.8);
+            font-size: var(--text-sm);
+        }
+
+        /* Timeline */
+        .roadmap-container {
+            padding: var(--space-lg) 0 var(--space-xxl);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--space-xl) 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: var(--space-md) var(--space-xl);
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: var(--space-xl);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: var(--space-xl);
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: var(--space-xl);
+        }
+
+        .timeline-content {
+            padding: var(--space-lg);
+            background-color: rgba(20, 20, 30, 0.8);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .timeline-item:hover .timeline-content {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
+            border: 1px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .timeline-date {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            text-shadow: var(--glow-secondary);
+            font-size: var(--text-xl);
+        }
+
+        .timeline-content h3 {
+            margin-bottom: var(--space-md);
+            color: var(--light);
+            font-size: var(--text-xl);
+            line-height: 1.3;
+        }
+
+        .timeline-content p {
+            color: rgba(240, 240, 245, 0.8);
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+        }
+
+        .progress-status {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: 20px;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .status-completed {
+            background-color: rgba(0, 230, 118, 0.2);
+            color: var(--success);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+        }
+
+        .status-inprogress {
+            background-color: rgba(0, 180, 255, 0.2);
+            color: var(--accent);
+            border: 1px solid rgba(0, 180, 255, 0.3);
+        }
+
+        .status-upcoming {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: var(--warning);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        /* Checklist */
+        .checklist {
+            margin-top: var(--space-md);
+        }
+
+        .checklist h4 {
+            margin-bottom: var(--space-md);
+            color: var(--light);
+            font-size: var(--text-lg);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+            padding: var(--space-sm);
+            background-color: rgba(30, 30, 40, 0.5);
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            background-color: rgba(138, 43, 226, 0.2);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-sm);
+            margin-right: var(--space-md);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .checklist-item input[type="checkbox"]:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .checklist-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: var(--text-sm);
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checklist-item label {
+            flex: 1;
+            cursor: pointer;
+            color: rgba(240, 240, 245, 0.9);
+            line-height: 1.4;
+            padding: var(--space-xs) 0;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + label {
+            color: var(--secondary);
+            text-decoration: line-through;
+        }
+
+        .milestone-icon {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--text-lg);
+            box-shadow: var(--glow-primary);
+            top: var(--space-lg);
+        }
+
+        .timeline-item:nth-child(odd) .milestone-icon {
+            right: -52px;
+        }
+
+        .timeline-item:nth-child(even) .milestone-icon {
+            left: -52px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: var(--space-xl) 0;
+            color: rgba(240, 240, 245, 0.7);
+            font-size: var(--text-sm);
+            margin-top: auto;
+        }
+
+        /* Media Queries for Responsiveness */
+        /* Tablets and smaller desktops */
+        @media (max-width: 992px) {
+            :root {
+                --text-heading: 2.25rem;
+                --text-xxxl: 1.75rem;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: var(--space-md);
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+                padding-left: 70px;
+                padding-right: var(--space-md);
+            }
+            
+            .timeline::before {
+                left: 31px;
+            }
+            
+            .timeline-item:nth-child(odd) .milestone-icon,
+            .timeline-item:nth-child(even) .milestone-icon {
+                left: -52px;
+                right: auto;
+            }
+            
+            .stats {
+                gap: var(--space-sm);
+            }
+            
+            .stat-item {
+                min-width: 100px;
+                padding: var(--space-sm);
+            }
+            
+            .stat-value {
+                font-size: var(--text-xxl);
+            }
+        }
+
+        /* Mobile devices */
+        @media (max-width: 768px) {
+            :root {
+                --text-heading: 2rem;
+                --text-xxxl: 1.5rem;
+                --text-xxl: 1.25rem;
+                --space-xl: 1.5rem;
+                --space-xxl: 2rem;
+            }
+            
+            body {
+                padding: var(--space-sm);
+            }
+            
+            header {
+                padding: var(--space-lg) 0 var(--space-md);
+            }
+            
+            h1 {
+                font-size: var(--text-heading);
+            }
+            
+            .subtitle {
+                font-size: var(--text-md);
+            }
+            
+            .progress-summary {
+                padding: var(--space-md);
+                margin: var(--space-lg) auto;
+            }
+            
+            .progress-summary h2 {
+                font-size: var(--text-xl);
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+            
+            .stat-item {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--space-sm) var(--space-md);
+                background-color: rgba(30, 30, 40, 0.5);
+                border-radius: var(--radius-md);
+            }
+            
+            .stat-value, .stat-label {
+                margin: 0;
+            }
+            
+            .timeline-item {
+                padding-left: 50px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(even) {
+                padding-left: 50px;
+                padding-right: 0;
+            }
+            
+            .timeline::before {
+                left: 21px;
+            }
+            
+            .timeline-item:nth-child(odd) .milestone-icon,
+            .timeline-item:nth-child(even) .milestone-icon {
+                left: -42px;
+                width: 34px;
+                height: 34px;
+                font-size: var(--text-md);
+            }
+            
+            .timeline-content {
+                padding: var(--space-md);
+            }
+            
+            .timeline-date {
+                font-size: var(--text-lg);
+            }
+            
+            .timeline-content h3 {
+                font-size: var(--text-lg);
+            }
+            
+            .checklist h4 {
+                font-size: var(--text-md);
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            :root {
+                --text-heading: 1.75rem;
+            }
+            
+            .back-btn {
+                font-size: var(--text-sm);
+            }
+            
+            .timeline-item {
+                padding-left: 40px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                padding-left: 40px;
+            }
+            
+            .timeline::before {
+                left: 16px;
+            }
+            
+            .timeline-item:nth-child(odd) .milestone-icon,
+            .timeline-item:nth-child(even) .milestone-icon {
+                left: -32px;
+                width: 30px;
+                height: 30px;
+                font-size: var(--text-sm);
+            }
+            
+            .checklist-item {
+                padding: var(--space-xs);
+            }
+            
+            .checklist-item input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                margin-right: var(--space-sm);
+            }
+            
+            .checklist-item label {
+                font-size: var(--text-sm);
+            }
+        }
+
+        /* Very small devices (watch size) */
+        @media (max-width: 320px) {
+            :root {
+                --text-heading: 1.5rem;
+                --text-lg: 1rem;
+            }
+            
+            .container {
+                padding: 0 var(--space-xs);
+            }
+            
+            .timeline-item {
+                padding-left: 35px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                padding-left: 35px;
+            }
+            
+            .timeline::before {
+                left: 12px;
+            }
+            
+            .timeline-item:nth-child(odd) .milestone-icon,
+            .timeline-item:nth-child(even) .milestone-icon {
+                left: -28px;
+                width: 26px;
+                height: 26px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .progress-summary, .timeline-content {
+                border: 1px solid #ccc;
+                backdrop-filter: none;
+            }
+            
+            .back-btn {
+                display: none;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .progress-fill {
+                transition: none;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary: #0000FF;
+                --secondary: #00FF00;
+                --accent: #FFFF00;
+                --dark: #000;
+                --light: #FFF;
+            }
+            
+            .timeline-content, .progress-summary {
+                border-width: 2px;
+            }
+        }
+
+        /* Dark mode support (though our theme is already dark) */
+        @media (prefers-color-scheme: dark) {
+            /* Already optimized for dark */
+        }
+
+        /* Orientation changes */
+        @media (orientation: landscape) and (max-height: 500px) {
+            header {
+                padding: var(--space-md) 0;
+            }
+            
+            .progress-summary {
+                margin: var(--space-md) auto;
+            }
+            
+            .roadmap-container {
+                padding: var(--space-md) 0 var(--space-xl);
+            }
+            
+            .timeline-item {
+                margin-bottom: var(--space-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home Page
+            </a>
+            <h1>WarpSynk Development Roadmap</h1>
+            <p class="subtitle">Our journey to building the universal decentralized sync layer for Web2 and Web3</p>
+        </header>
+
+        <div class="progress-summary">
+            <h2>Overall Progress</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overall-progress"></div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="completed-value">0%</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="inprogress-value">0</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="upcoming-value">0</div>
+                    <div class="stat-label">Upcoming</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="roadmap-container">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Q1 2024 - Q2 2025</div>
+                    <div class="timeline-content">
+                        <span class="progress-status status-completed">Completed</span>
+                        <div class="milestone-icon">1</div>
+                        <h3>Research and Prototyping</h3>
+                        <p>Core architecture design, technical blueprints, and initial protocol development</p>
+                        
+                        <div class="checklist">
+                            <h4>Key Deliverables</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task1-1" checked>
+                                <label for="task1-1">Market research and problem validation</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task1-2" checked>
+                                <label for="task1-2">Core protocol architecture design</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task1-3" checked>
+                                <label for="task1-3">Proof of Sync consensus mechanism design</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task1-4" checked>
+                                <label for="task1-4">Initial technical whitepaper</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task1-5" checked>
+                                <label for="task1-5">First prototype implementation</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Q3 2025</div>
+                    <div class="timeline-content">
+                        <span class="progress-status status-inprogress">In Progress</span>
+                        <div class="milestone-icon">2</div>
+                        <h3>Test-mode Launch</h3>
+                        <p>SynkPass NFT distribution, early partner onboarding, and public testnet activation</p>
+                        
+                        <div class="checklist">
+                            <h4>Key Deliverables</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task2-1" checked>
+                                <label for="task2-1">SynkPass NFT minting platform development</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task2-2" checked>
+                                <label for="task2-2">First community airdrop distribution</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task2-3" checked>
+                                <label for="task2-3">Testnet node software development</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task2-4">
+                                <label for="task2-4">Public testnet launch</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task2-5">
+                                <label for="task2-5">First external security audit</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task2-6">
+                                <label for="task2-6">Early partner integrations</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Q4 2025 - Q1 2026</div>
+                    <div class="timeline-content">
+                        <span class="progress-status status-upcoming">Upcoming</span>
+                        <div class="milestone-icon">3</div>
+                        <h3>Token Generation Event</h3>
+                        <p>$WSYNK token launch, mainnet activation, and initial exchange listings</p>
+                        
+                        <div class="checklist">
+                            <h4>Key Deliverables</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task3-1">
+                                <label for="task3-1">Tokenomics finalization</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task3-2">
+                                <label for="task3-2">$WSYNK token contract deployment</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task3-3">
+                                <label for="task3-3">Token sale and public distribution</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task3-4">
+                                <label for="task3-4">Mainnet launch</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task3-5">
+                                <label for="task3-5">Initial exchange listings</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task3-6">
+                                <label for="task3-6">Node operator onboarding program</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Q2 2026 - Q1 2027</div>
+                    <div class="timeline-content">
+                        <span class="progress-status status-upcoming">Upcoming</span>
+                        <div class="milestone-icon">4</div>
+                        <h3>Full Decentralization</h3>
+                        <p>DAO governance handoff, Layer-2 integrations, and global adoption campaigns</p>
+                        
+                        <div class="checklist">
+                            <h4>Key Deliverables</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task4-1">
+                                <label for="task4-1">DAO governance implementation</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task4-2">
+                                <label for="task4-2">Multi-chain expansion (Ethereum, Polygon, etc.)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task4-3">
+                                <label for="task4-3">Enterprise-grade SDK releases</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task4-4">
+                                <label for="task4-4">Global marketing and adoption campaigns</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task4-5">
+                                <label for="task4-5">Mobile app development</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="task4-6">
+                                <label for="task4-6">Protocol v2.0 development</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 WarpSynk Labs. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Roadmap data
+        const roadmapData = {
+            phases: [
+                {
+                    id: "phase1",
+                    title: "Research and Prototyping",
+                    timeframe: "Q1 2024 - Q2 2025",
+                    status: "completed",
+                    tasks: [
+                        { id: "task1-1", label: "Market research and problem validation", completed: true },
+                        { id: "task1-2", label: "Core protocol architecture design", completed: true },
+                        { id: "task1-3", label: "Proof of Sync consensus mechanism design", completed: true },
+                        { id: "task1-4", label: "Initial technical whitepaper", completed: true },
+                        { id: "task1-5", label: "First prototype implementation", completed: true }
+                    ]
+                },
+                {
+                    id: "phase2",
+                    title: "Test-mode Launch",
+                    timeframe: "Q3 2025",
+                    status: "inprogress",
+                    tasks: [
+                        { id: "task2-1", label: "SynkPass NFT minting platform development", completed: true },
+                        { id: "task2-2", label: "First community airdrop distribution", completed: true },
+                        { id: "task2-3", label: "Testnet node software development", completed: true },
+                        { id: "task2-4", label: "Public testnet launch", completed: false },
+                        { id: "task2-5", label: "First external security audit", completed: false },
+                        { id: "task2-6", label: "Early partner integrations", completed: false }
+                    ]
+                },
+                {
+                    id: "phase3",
+                    title: "Token Generation Event",
+                    timeframe: "Q4 2025 - Q1 2026",
+                    status: "upcoming",
+                    tasks: [
+                        { id: "task3-1", label: "Tokenomics finalization", completed: false },
+                        { id: "task3-2", label: "$WSYNK token contract deployment", completed: false },
+                        { id: "task3-3", label: "Token sale and public distribution", completed: false },
+                        { id: "task3-4", label: "Mainnet launch", completed: false },
+                        { id: "task3-5", label: "Initial exchange listings", completed: false },
+                        { id: "task3-6", label: "Node operator onboarding program", completed: false }
+                    ]
+                },
+                {
+                    id: "phase4",
+                    title: "Full Decentralization",
+                    timeframe: "Q2 2026 - Q1 2027",
+                    status: "upcoming",
+                    tasks: [
+                        { id: "task4-1", label: "DAO governance implementation", completed: false },
+                        { id: "task4-2", label: "Multi-chain expansion (Ethereum, Polygon, etc.)", completed: false },
+                        { id: "task4-3", label: "Enterprise-grade SDK releases", completed: false },
+                        { id: "task4-4", label: "Global marketing and adoption campaigns", completed: false },
+                        { id: "task4-5", label: "Mobile app development", completed: false },
+                        { id: "task4-6", label: "Protocol v2.0 development", completed: false }
+                    ]
+                }
+            ]
+        };
+
+        // Initialize the roadmap
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up checkboxes based on roadmap data
+            roadmapData.phases.forEach(phase => {
+                phase.tasks.forEach(task => {
+                    const checkbox = document.getElementById(task.id);
+                    if (checkbox) {
+                        checkbox.checked = task.completed;
+                        
+                        // Add event listener to update data when checkbox changes
+                        checkbox.addEventListener('change', function() {
+                            task.completed = this.checked;
+                            updateProgress();
+                        });
+                    }
+                });
+            });
+
+            // Initial progress update
+            updateProgress();
+        });
+
+        // Calculate and update progress
+        function updateProgress() {
+            let totalTasks = 0;
+            let completedTasks = 0;
+            let inProgressPhases = 0;
+            let upcomingPhases = 0;
+            
+            roadmapData.phases.forEach(phase => {
+                phase.tasks.forEach(task => {
+                    totalTasks++;
+                    if (task.completed) completedTasks++;
+                });
+                
+                if (phase.status === "inprogress") inProgressPhases++;
+                if (phase.status === "upcoming") upcomingPhases++;
+            });
+            
+            const completionPercentage = Math.round((completedTasks / totalTasks) * 100);
+            
+            // Update progress bar
+            document.getElementById('overall-progress').style.width = completionPercentage + '%';
+            
+            // Update stats
+            document.getElementById('completed-value').textContent = completionPercentage + '%';
+            document.getElementById('inprogress-value').textContent = inProgressPhases;
+            document.getElementById('upcoming-value').textContent = upcomingPhases;
+        }
+    </script>
+</body>
+</html>
