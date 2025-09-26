@@ -1,14 +1,14 @@
-WarpSynk Protocol
+## WarpSynk Protocol
 
 Universal Decentralized Data Sync Layer for Web2 and Web3
 
-Overview
+# Overview
 
 WarpSynk is a decentralized protocol for secure and verifiable data synchronization. It connects applications across Web2 and Web3 using Proof of Sync (PoSync), encrypted channels, and incentive-driven node infrastructure.
 
 The protocol is designed for developers, communities, and enterprises that need reliable, censorship-resistant, and privacy-first data layers.
 
-Key Features
+# Key Features
 
 Proof of Sync (PoSync) – Lightweight consensus for real-time data synchronization.
 
@@ -23,7 +23,7 @@ SynkPass NFTs – Identity and access layer for node participation and governanc
 WarpAPI Gateway – REST, GraphQL, and WebSocket APIs for seamless Web2 integration.
 
 
-Architecture
+# Architecture
 
 +-------------------+         +--------------------+
 |  Applications     | <-----> |   WarpAPI Gateway  |
@@ -41,7 +41,7 @@ Architecture
                       | PoSync|
                       +-------+
 
-Developer Ecosystem
+# Developer Ecosystem
 
 SynkKit SDKs – Available for JavaScript/TypeScript, Flutter (Dart), Swift, Kotlin, and Rust.
 
@@ -65,7 +65,7 @@ const client = new SynkClient({
 await client.connect();
 await client.sync("user-profile", { name: "Alice" });
 
-Community & Governance
+# Community & Governance
 
 WarpDAO – Community-driven governance framework.
 
@@ -76,7 +76,7 @@ Community Channels;
 Discord (coming soon),Telegram, pre-WarpDAO Governance Forum.
 
 
-Security
+# Security
 
 Audited smart contracts for token, staking, and governance.
 
