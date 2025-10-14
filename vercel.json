@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    { "source": "/", "destination": "/home", "permanent": true },
+    { "source": "/home", "destination": "/index.html", "permanent": true },
+    { "source": "/about", "destination": "/about.html", "permanent": true },
+    { "source": "/docs", "destination": "/docs.html", "permanent": true },
+    { "source": "/roadmap", "destination": "/roadmap.html", "permanent": true },
+    { "source": "/litepaper", "destination": "/litepaper.html", "permanent": true },
+    { "source": "/privacy", "destination": "/privacy.html", "permanent": true },
+    { "source": "/terms", "destination": "/terms.html", "permanent": true }
+  ]
+}
