@@ -1,1 +1,2152 @@
-coming soon
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WarpSynk Protocol - Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #6a1b9a;
+            --secondary: #00ffaa;
+            --accent: #00b4ff;
+            --dark: #0a0a14;
+            --darker: #05050a;
+            --light: #f0f0f5;
+            --gray: #6c757d;
+            --success: #00e676;
+            --warning: #ffc107;
+            --danger: #ff3d71;
+            --info: #00b4ff;
+
+            --glow-primary: 0 0 10px rgba(138, 43, 226, 0.7);
+            --glow-secondary: 0 0 10px rgba(0, 255, 170, 0.5);
+            --glow-accent: 0 0 10px rgba(0, 180, 255, 0.5);
+
+            /* Spacing variables */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+
+            /* Font sizes */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-md: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-xxl: 1.5rem;
+            --text-xxxl: 2rem;
+            --text-heading: 2.5rem;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--light);
+            line-height: 1.6;
+            background-color: var(--dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 170, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Improved touch targets for mobile */
+        a, button {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            flex: 1;
+            display: flex;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(10, 10, 20, 0.9);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            padding: var(--space-md) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-weight: 700;
+            font-size: var(--text-xl);
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--secondary);
+            font-size: var(--text-xxl);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .nav-links a {
+            color: rgba(240, 240, 245, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: var(--text-xl);
+            cursor: pointer;
+        }
+
+        /* Documentation Layout */
+        .docs-container {
+            display: flex;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: rgba(15, 15, 25, 0.9);
+            border-right: 1px solid rgba(138, 43, 226, 0.2);
+            padding: var(--space-xl) var(--space-lg);
+            height: calc(100vh - 80px);
+            position: sticky;
+            top: 80px;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .sidebar-header {
+            margin-bottom: var(--space-xl);
+        }
+
+        .sidebar-title {
+            font-size: var(--text-lg);
+            color: var(--light);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .sidebar-title i {
+            color: var(--secondary);
+        }
+
+        .sidebar-search {
+            position: relative;
+            margin-bottom: var(--space-lg);
+        }
+
+        .sidebar-search input {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            background-color: rgba(30, 30, 40, 0.7);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: var(--radius-md);
+            color: var(--light);
+            font-size: var(--text-sm);
+        }
+
+        .sidebar-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .sidebar-search i {
+            position: absolute;
+            right: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .nav-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .nav-section-title {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: var(--space-md);
+            margin-bottom: var(--space-xs);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-sm) var(--space-md);
+            color: rgba(240, 240, 245, 0.8);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+            font-size: var(--text-sm);
+        }
+
+        .nav-item:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+            color: var(--light);
+        }
+
+        .nav-item.active {
+            background-color: rgba(138, 43, 226, 0.2);
+            color: var(--secondary);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .nav-item i {
+            margin-right: var(--space-sm);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: var(--space-xl);
+            overflow-y: auto;
+            max-width: 100%;
+        }
+
+        .content-section {
+            margin-bottom: var(--space-xxl);
+            scroll-margin-top: 100px;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        h1 {
+            font-size: var(--text-heading);
+            margin-bottom: var(--space-md);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: var(--text-xxxl);
+            margin: var(--space-xl) 0 var(--space-lg);
+            color: var(--light);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            padding-bottom: var(--space-sm);
+        }
+
+        h3 {
+            font-size: var(--text-xxl);
+            margin: var(--space-lg) 0 var(--space-md);
+            color: var(--light);
+        }
+
+        h4 {
+            font-size: var(--text-xl);
+            margin: var(--space-lg) 0 var(--space-md);
+            color: var(--light);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+            color: rgba(240, 240, 245, 0.8);
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-xl);
+        }
+
+        li {
+            margin-bottom: var(--space-sm);
+            color: rgba(240, 240, 245, 0.8);
+            line-height: 1.6;
+        }
+
+        .card {
+            background-color: rgba(20, 20, 30, 0.8);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .card-title {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-md);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .card-title i {
+            color: var(--secondary);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: var(--space-lg);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--space-lg);
+        }
+
+        th, td {
+            padding: var(--space-md);
+            text-align: left;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        th {
+            background-color: rgba(138, 43, 226, 0.1);
+            color: var(--light);
+            font-weight: 600;
+        }
+
+        td {
+            color: rgba(240, 240, 245, 0.8);
+        }
+
+        tr:hover {
+            background-color: rgba(138, 43, 226, 0.05);
+        }
+
+        .code-block {
+            background-color: rgba(10, 10, 20, 0.9);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            white-space: pre-wrap;
+            color: var(--light);
+            line-height: 1.5;
+        }
+
+        .highlight {
+            background-color: rgba(0, 255, 170, 0.1);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .note {
+            background-color: rgba(0, 180, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .note-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        .warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .warning-title {
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: var(--space-xs);
+        }
+
+        .success {
+            background-color: rgba(0, 230, 118, 0.1);
+            border-left: 4px solid var(--success);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .success-title {
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: var(--space-xs);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--glow-primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(90deg, var(--secondary), #00cc88);
+            box-shadow: var(--glow-secondary);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(0, 255, 170, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(138, 43, 226, 0.1);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(10, 10, 20, 0.9);
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+            padding: var(--space-xl) 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .footer-links a {
+            color: rgba(240, 240, 245, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            color: rgba(240, 240, 245, 0.5);
+            font-size: var(--text-sm);
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            font-size: var(--text-sm);
+            color: rgba(240, 240, 245, 0.7);
+        }
+
+        .breadcrumbs a {
+            color: rgba(240, 240, 245, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumbs a:hover {
+            color: var(--secondary);
+        }
+
+        .breadcrumbs .separator {
+            color: var(--gray);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            margin-bottom: var(--space-lg);
+        }
+
+        .tab {
+            padding: var(--space-md) var(--space-lg);
+            cursor: pointer;
+            color: rgba(240, 240, 245, 0.7);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: var(--secondary);
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Media Queries for Responsiveness */
+        /* Tablets and smaller desktops */
+        @media (max-width: 992px) {
+            :root {
+                --text-heading: 2.25rem;
+                --text-xxxl: 1.75rem;
+            }
+
+            .sidebar {
+                width: 240px;
+            }
+
+            .main-content {
+                padding: var(--space-lg);
+            }
+        }
+
+        /* Mobile devices */
+        @media (max-width: 768px) {
+            :root {
+                --text-heading: 2rem;
+                --text-xxxl: 1.5rem;
+                --text-xxl: 1.25rem;
+                --space-xl: 1.5rem;
+                --space-xxl: 2rem;
+            }
+
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .docs-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: var(--space-lg);
+            }
+
+            .main-content {
+                padding: var(--space-md);
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-md);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            :root {
+                --text-heading: 1.75rem;
+            }
+
+            .sidebar {
+                padding: var(--space-md);
+            }
+
+            .card {
+                padding: var(--space-md);
+            }
+
+            h2 {
+                font-size: var(--text-xxl);
+            }
+
+            h3 {
+                font-size: var(--text-xl);
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .sidebar, .header, .footer, .breadcrumbs, .action-buttons {
+                display: none;
+            }
+
+            .main-content {
+                padding: 0;
+            }
+
+            .card {
+                border: 1px solid #ccc;
+                backdrop-filter: none;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary: #0000FF;
+                --secondary: #00FF00;
+                --accent: #FFFF00;
+                --dark: #000;
+                --light: #FFF;
+            }
+
+            .card, .sidebar, header, footer {
+                border-width: 2px;
+            }
+        }
+
+        /* Dark mode support (though our theme is already dark) */
+        @media (prefers-color-scheme: dark) {
+            /* Already optimized for dark */
+        }
+
+        /* Orientation changes */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .sidebar {
+                height: calc(100vh - 60px);
+                top: 60px;
+            }
+
+            header {
+                padding: var(--space-sm) 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-sync-alt logo-icon"></i>
+                <span>WarpSynk</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="docs.html" class="active"><i class="fas fa-book"></i> Documentation</a>
+                <a href="#"><i class="fas fa-code"></i> Developer</a>
+                <a href="#"><i class="fas fa-users"></i> Community</a>
+            </nav>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="docs-container">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h2 class="sidebar-title">
+                        <i class="fas fa-book-open"></i> Documentation
+                    </h2>
+                    <div class="sidebar-search">
+                        <input type="text" placeholder="Search documentation...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <nav class="sidebar-nav">
+                    <div class="nav-section">
+                        <div class="nav-section-title">Getting Started</div>
+                        <a href="#introduction" class="nav-item active">
+                            <i class="fas fa-play-circle"></i> Introduction
+                        </a>
+                        <a href="#problem-statement" class="nav-item">
+                            <i class="fas fa-exclamation-triangle"></i> Problem Statement
+                        </a>
+                        <a href="#core-architecture" class="nav-item">
+                            <i class="fas fa-sitemap"></i> Core Architecture
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Protocol Details</div>
+                        <a href="#layered-infrastructure" class="nav-item">
+                            <i class="fas fa-layer-group"></i> Layered Infrastructure
+                        </a>
+                        <a href="#tokenomics" class="nav-item">
+                            <i class="fas fa-coins"></i> Tokenomics
+                        </a>
+                        <a href="#use-cases" class="nav-item">
+                            <i class="fas fa-cube"></i> Use Cases
+                        </a>
+                        <a href="#privacy-security" class="nav-item">
+                            <i class="fas fa-shield-alt"></i> Privacy & Security
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Development</div>
+                        <a href="#developer-tools" class="nav-item">
+                            <i class="fas fa-tools"></i> Developer Tools
+                        </a>
+                        <a href="#governance" class="nav-item">
+                            <i class="fas fa-vote-yea"></i> Governance
+                        </a>
+                        <a href="#roadmap" class="nav-item">
+                            <i class="fas fa-road"></i> Roadmap
+                        </a>
+                    </div>
+
+                    <div class="nav-section">
+                        <div class="nav-section-title">Resources</div>
+                        <a href="#partnerships" class="nav-item">
+                            <i class="fas fa-handshake"></i> Partnerships
+                        </a>
+                        <a href="#risk-analysis" class="nav-item">
+                            <i class="fas fa-exclamation-circle"></i> Risk Analysis
+                        </a>
+                        <a href="#legal-regulatory" class="nav-item">
+                            <i class="fas fa-balance-scale"></i> Legal & Regulatory
+                        </a>
+                        <a href="#appendix" class="nav-item">
+                            <i class="fas fa-file-alt"></i> Appendix
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <main class="main-content">
+                <div class="breadcrumbs">
+                    <a href="index.html">Home</a>
+                    <span class="separator">/</span>
+                    <a href="docs.html">Documentation</a>
+                    <span class="separator">/</span>
+                    <span>Introduction</span>
+                </div>
+
+                <section id="introduction" class="content-section">
+                    <h1>WarpSynk Protocol Documentation</h1>
+                    <p class="subtitle">A universal, real-time sync layer across Web2 & Web3</p>
+
+                    <div class="action-buttons">
+                        <a href="#core-architecture" class="btn">
+                            <i class="fas fa-sitemap"></i> Explore Architecture
+                        </a>
+                        <a href="#tokenomics" class="btn btn-secondary">
+                            <i class="fas fa-coins"></i> Tokenomics
+                        </a>
+                        <a href="#developer-tools" class="btn btn-outline">
+                            <i class="fas fa-code"></i> Developer Tools
+                        </a>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-info-circle"></i> What is WarpSynk Protocol?
+                        </h3>
+                        <p>WarpSynk Protocol is a decentralized system that keeps digital data in sync — across blockchains, devices, apps, and time. It's not just a tool for developers. It's a foundation for a world where data flows freely, securely, and under user control.</p>
+                        <p>In a world overloaded with isolated systems, digital silos, and broken bridges between old and new tech, WarpSynk offers a fresh answer:</p>
+                        <p class="highlight">"Let everything talk, move, and stay in sync — on your terms."</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-bullseye"></i> Why WarpSynk Matters
+                        </h3>
+                        <p>The internet runs on sync — but today, sync is broken:</p>
+                        <ul>
+                            <li>Blockchains don't talk to each other easily</li>
+                            <li>Web2 apps don't speak Web3 natively</li>
+                            <li>Time-based state changes break when systems fall out of sync</li>
+                            <li>Users have no say in how their data flows — or even where it is</li>
+                        </ul>
+                        <p>WarpSynk answers this chaos with a distributed protocol that makes synchronization:</p>
+                        <ul>
+                            <li><span class="highlight">Trustless</span> — No middleman needed</li>
+                            <li><span class="highlight">Compositional</span> — Works across layers and chains</li>
+                            <li><span class="highlight">Secure</span> — Privacy and user permissions baked in</li>
+                            <li><span class="highlight">Rewarded</span> — Users who power the sync get paid in $WSYNK</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-rocket"></i> The Big Vision
+                        </h3>
+                        <p>WarpSynk is not just another protocol — it's a new digital ownership layer.</p>
+                        <p>In the coming world of AI agents, decentralized identity, multi-chain apps, and user-owned data, synchronization isn't a feature. It's the spine. Without sync, systems collapse. With WarpSynk, systems evolve — together.</p>
+                        <p>This isn't just about building apps. It's about building the flow layer of a freer, fairer, smarter web.</p>
+                    </div>
+                </section>
+
+                <section id="problem-statement" class="content-section">
+                    <h2>Problem Statement: Fragmented, Isolated, Insecure Data</h2>
+                    <p>The internet is supposed to connect everything — people, platforms, and systems — but in reality, it's divided.</p>
+                    <p>Every app, every blockchain, and every cloud runs on its own timeline, stores its own version of data, and speaks its own language. The result: Chaos missed updates, broken experiences and lost trust.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-puzzle-piece"></i> Data Fragmentation & Platform Silos
+                        </h3>
+                        <p>In today's digital world, your data lives in a thousand places at once: On your phone, in the cloud, inside one app, but not another, across multiple blockchains, with no easy bridge.</p>
+                        <p>These silos don't talk to each other. And when they try, the cost is high — slow APIs, risky bridges, fragile integrations, and constant errors.</p>
+                        <p>Developers spend more time patching data sync issues than building new value. Users suffer lag, duplicate steps, and broken features. The more apps we build, the worse the mess gets.</p>
+                        <div class="note">
+                            <div class="note-title">WarpSynk Solution</div>
+                            <p>Stop patching sync. Start building with it at the core.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-unlink"></i> Incompatibility between Web2 and Web3
+                        </h3>
+                        <p>Web2 runs fast, but it's centralized. Web3 is decentralized, but it lags and can't always keep up. Trying to make these two worlds talk is like syncing a live concert with a satellite stream — delay is built-in.</p>
+                        <p>Web2 apps expect real-time feedback. Web3 runs on blocks and confirmations. Users expect instant results but get delays, pending states, and unclear finality.</p>
+                        <p>This disconnect slows adoption of Web3 tools and makes hybrid dApps (decentralized apps) fragile and expensive to run.</p>
+                        <div class="note">
+                            <div class="note-title">WarpSynk Solution</div>
+                            <p>Bridge the timing gap — giving both worlds a shared sync layer they can trust.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-eye-slash"></i> The Growing burden of Centralized Surveillance
+                        </h3>
+                        <p>Every time you sync data through a major platform, you give up something — control, privacy, or both. In today's data and analytics space, syncing between apps usually means:</p>
+                        <ul>
+                            <li>Routing through centralized servers</li>
+                            <li>Agreeing to vague terms-of-service</li>
+                            <li>Getting tracked, logged, and resold</li>
+                        </ul>
+                        <p>This isn't just bad ethics. It's bad infrastructure. Developers can be cut off without warning. Governments can censor or shut down access. Users can't tell where their data went — or who has it.</p>
+                        <div class="note">
+                            <div class="note-title">WarpSynk Solution</div>
+                            <p>Flip the model. Sync becomes peer-to-peer, permissioned, and encrypted-by-default. No data leaves unless you let it.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-clock"></i> Data Latency & the cost of being Out-of-Sync
+                        </h3>
+                        <p>Timing is everything. In financial systems, games, health tech, logistics, or even messaging — a delay of milliseconds can mean:</p>
+                        <ul>
+                            <li>Missed trades</li>
+                            <li>Broken game logic</li>
+                            <li>Duplicated payments</li>
+                            <li>Dangerous misinformation</li>
+                        </ul>
+                        <p>When systems don't agree on who updated what, and when, things break fast. Most blockchains were never designed to solve sync. Most Web2 APIs solve it poorly and expensively.</p>
+                        <div class="note">
+                            <div class="note-title">WarpSynk Solution</div>
+                            <p>Build sync into the base layer — a shared logic of time and state. With WarpSynk, systems update each other in real time with proof of what happened — and when.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="core-architecture" class="content-section">
+                    <h2>Core Architecture and Functional Overview</h2>
+                    <p>WarpSynk is built from the ground up to solve the toughest data challenges — in real-time, across systems, without giving up control. Here's how the engine runs:</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-network-wired"></i> SyncMesh Network: The Data Highway
+                        </h3>
+                        <p>At the center of WarpSynk lies the SyncMesh Network — a decentralized mesh of nodes that work together to keep data synchronized across different devices, applications, and blockchains.</p>
+                        <p>Instead of relying on a central server or cloud service, SyncMesh creates a trustless, peer-to-peer network where updates are:</p>
+                        <ul>
+                            <li>Propagated instantly</li>
+                            <li>Verified by multiple nodes</li>
+                            <li>Stored in a consistent state across all participants</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Why it matters</div>
+                            <p>This eliminates single points of failure and enables a more resilient and scalable internet — where your data follows you, not platforms.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-server"></i> SynkNodes: The Devices That Power the Sync
+                        </h3>
+                        <p>SynkNodes are lightweight, multi-platform programs that run on any device — phones, desktops, IoT devices, servers, even smart contracts.</p>
+                        <p>Each SynkNode is capable of:</p>
+                        <ul>
+                            <li>Receiving and pushing real-time updates</li>
+                            <li>Validating sync proofs</li>
+                            <li>Running on minimal resources</li>
+                            <li>Participating in sync consensus</li>
+                        </ul>
+                        <h4>Types of SynkNodes:</h4>
+                        <ul>
+                            <li><span class="highlight">Core Nodes:</span> High-availability nodes that store full sync states and coordinate peer connections</li>
+                            <li><span class="highlight">Edge Nodes:</span> Devices like phones or laptops — optimized for privacy, offline support, and partial data sync</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Incentive</div>
+                            <p>Anyone can run a SynkNode — and earn $WSYNK rewards for contributing sync power to the network.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-fingerprint"></i> Proof of Sync (PoSync): Trusting the Flow
+                        </h3>
+                        <p>The backbone of WarpSynk's trust layer is Proof of Sync (PoSync) — a custom consensus algorithm designed to verify that:</p>
+                        <ul>
+                            <li>Data was updated correctly</li>
+                            <li>The sync state is fresh</li>
+                            <li>The timestamp is valid</li>
+                        </ul>
+                        <p>PoSync doesn't compete with proof-of-work or proof-of-stake — it works with them, enhancing cross-chain operations and off-chain integrations by creating a verified timeline of changes.</p>
+                        <p>Each sync event is logged and signed, creating an auditable, tamper-proof record — like a fingerprint for every data change.</p>
+                        <div class="note">
+                            <div class="note-title">Why this matters</div>
+                            <p>Sync breaks when trust breaks. PoSync ensures that every participant agrees not just on what data changed, but when and why — with cryptographic evidence.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-shield"></i> Privacy Modes: Your Data, Your Rules
+                        </h3>
+                        <p>WarpSynk is built on the principle that sync does not have to mean surveillance. Users can choose between two powerful privacy modes:</p>
+                        <ul>
+                            <li><span class="highlight">Open/Public Sync:</span> For collaborative data, real-time updates, public feeds, and transparent workflows. Data is open, and sync proofs are visible on-chain or shared networks.</li>
+                            <li><span class="highlight">Encrypted Personal Sync:</span> This is crafted for private use cases like health data, financial logs, or identity credentials. All data is end-to-end encrypted. Only the user and authorized peers can view or sync as long as they hold cryptographic keys to the private data vault.</li>
+                        </ul>
+                        <p>Additionally, WarpSynk supports selective disclosure, where parts of the data can be shared while others remain hidden — allowing for flexible, trust-preserving interactions.</p>
+                        <div class="success">
+                            <div class="success-title">Summary</div>
+                            <p>WarpSynk isn't just syncing data. It's syncing trust, time, and privacy — everywhere.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="layered-infrastructure" class="content-section">
+                    <h2>The Layered Infrastructure</h2>
+                    <p>WarpSynk is designed as a modular system — each layer adds depth, flexibility, and control. Like a living protocol, it grows and evolves across four powerful layers:</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-mobile-alt"></i> Base Layer: Device-Level Sync
+                        </h3>
+                        <p>This is the foundation of WarpSynk — where real-time sync starts.</p>
+                        <h4>What it does:</h4>
+                        <p>Handles direct syncing between devices (phones, computers, sensors, etc.) even without constant internet.</p>
+                        <h4>How it works:</h4>
+                        <p>Each device runs a SynkNode. These nodes maintain a local data ledger in a private Synk Data Vault that records updates and generates sync proofs.</p>
+                        <h4>Key features:</h4>
+                        <ul>
+                            <li>Works offline</li>
+                            <li>Syncs when reconnected</li>
+                            <li>Minimal power/resource usage</li>
+                            <li>Keeps the user in control of sync frequency and permissions</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Why it matters</div>
+                            <p>No cloud? No problem. This layer ensures that even disconnected systems can stay in sync — then catch up securely.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-project-diagram"></i> Mesh Layer: Global propagation across Synk Nodes
+                        </h3>
+                        <p>This is the middle layer, responsible for broad distribution.</p>
+                        <h4>What it does:</h4>
+                        <p>Connects SynkNodes in a peer-to-peer network — the SyncMesh — for global update sharing.</p>
+                        <h4>How it works:</h4>
+                        <p>Updates travel across nodes using a decentralized gossip protocol, Proof of Sync (PoSync) validates updates and timestamps. Multiple confirmations ensure accuracy before final sync.</p>
+                        <h4>Key strengths:</h4>
+                        <ul>
+                            <li>Fault-tolerant</li>
+                            <li>Scales organically as new devices join</li>
+                            <li>Works across chains, cloud apps, and edge devices</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Why it matters</div>
+                            <p>This is WarpSynk's engine room — ensuring every valid update reaches where it's needed, no matter where it started.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-vote-yea"></i> Governance Layer: Decentralized Voting and Upgrades
+                        </h3>
+                        <p>This is the decision-making brain of WarpSynk.</p>
+                        <h4>What it does:</h4>
+                        <p>It lets $WSYNK and SynkPass NFT holders propose, vote on, and activate changes to the protocol.</p>
+                        <h4>What can be governed:</h4>
+                        <ul>
+                            <li>Network parameters (fees, staking rewards, node roles)</li>
+                            <li>Privacy policies and sync modes</li>
+                            <li>New chain integrations</li>
+                            <li>Protocol upgrades and funding allocations</li>
+                        </ul>
+                        <h4>How it works:</h4>
+                        <ul>
+                            <li>Token-based voting via on-chain proposals</li>
+                            <li>Delegation for passive holders</li>
+                            <li>Community-led improvement proposals (SIPs – Synk Improvement Proposals)</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Why it matters</div>
+                            <p>WarpSynk evolves with its users. No closed boardrooms — just public votes and transparent change.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-secret"></i> Privacy Layer: Shielded and Selective Sync Channels
+                        </h3>
+                        <p>At the top is WarpSynk's trust and discretion layer — where data privacy meets power.</p>
+                        <h4>What it does:</h4>
+                        <p>Enables custom control over who sees what, and how sync is shared. Privacy tools include:</p>
+                        <ul>
+                            <li>End-to-end encryption (E2EE)</li>
+                            <li>Zero-knowledge sync proofs (in development)</li>
+                            <li>Selective sharing of fields or updates</li>
+                            <li>Burn-After-Sync (BaS) options for sensitive logs</li>
+                        </ul>
+                        <h4>Modes:</h4>
+                        <ul>
+                            <li><span class="highlight">Private Mode:</span> You sync only with authorized nodes</li>
+                            <li><span class="highlight">Shielded Broadcast:</span> Anonymous updates sent to global mesh</li>
+                            <li><span class="highlight">Hybrid Sync:</span> Public updates with private metadata</li>
+                        </ul>
+                        <div class="success">
+                            <div class="success-title">Summary</div>
+                            <p>WarpSynk proves that syncing doesn't require surveillance. You own your flow, your data, and together these Layers create a Stack that is modular, resilient, and sovereign.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tokenomics" class="content-section">
+                    <h2>Tokenomics (WarpSynk Token)</h2>
+                    <p>This is the engine of sync, the fuel of data flow.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-tag"></i> Name, Ticker and Total Supply
+                        </h3>
+                        <ul>
+                            <li><span class="highlight">Token name:</span> WarpSynk Utility Token</li>
+                            <li><span class="highlight">Ticker:</span> $WSYNK</li>
+                            <li><span class="highlight">Fixed Total Supply:</span> 250,000,000 $WSYNK tokens will ever exist</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Key Feature</div>
+                            <p>No hidden mints. No backdoors. No inflation surprises. This fixed cap ensures scarcity, long-term planning, and meaningful participation — not runaway speculation.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-pie"></i> Token Distribution
+                        </h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Allocation</th>
+                                        <th>Purpose</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Community & Airdrop</td>
+                                        <td>50%</td>
+                                        <td>Distributed to early users, node operators, and SynkPass NFT holders</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Team & Advisors</td>
+                                        <td>10%</td>
+                                        <td>For builders, contributors, and long-term protocol stewards</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ecosystem Growth</td>
+                                        <td>25%</td>
+                                        <td>Grants, Partnerships, Hackathons, Staking rewards, Integration support</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Liquidity & Exchanges</td>
+                                        <td>10%</td>
+                                        <td>CEX/DEX listings, Initial liquidity pools</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Protocol Reserve</td>
+                                        <td>5%</td>
+                                        <td>Emergency funds, future governance allocations, Unforeseen opportunities</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="note">
+                            <div class="note-title">Vesting & Lockups</div>
+                            <p>Team and advisor tokens are locked with a 12-month cliff and linear release over 48 months. Community and ecosystem tokens follow merit-based release schedules tied to real activity (not hype).</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-cogs"></i> Token Utility
+                        </h3>
+                        <p>$WSYNK isn't just a token — it's how you access, participate, and thrive in the WarpSynk ecosystem. Here's how it works:</p>
+                        <h4>Sync Rewards</h4>
+                        <p>Node operators who validate data and help maintain uptime earn $WSYNK. The reward amount is based on reliability, speed, and geography.</p>
+                        <h4>Node Staking</h4>
+                        <p>For users to run a SynkNode, they stake $WSYNK tokens according to the SynkNode type. Staked tokens can be slashed for bad behavior (e.g., false/fake syncing or longer downtime).</p>
+                        <h4>Protocol Fees</h4>
+                        <p>Some sync functions (especially private or enterprise-grade) include micro-fees paid in $WSYNK. These fees are routed to stakers, node runners, and the community pool.</p>
+                        <h4>Governance Rights</h4>
+                        <p>Holders can vote on protocol changes, funding proposals, ecosystem expansions, and validator roles. More $WSYNK + SynkPass NFT = more weight in shaping WarpSynk's evolution.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-fire"></i> Burn Mechanism & Inflation Control
+                        </h3>
+                        <p>To keep $WSYNK valuable and efficient, the following will be implemented:</p>
+                        <h4>Fee Burn:</h4>
+                        <p>A portion of protocol fees is burned automatically, removing them from circulation forever.</p>
+                        <h4>Sync Tax:</h4>
+                        <p>Idle nodes may pay a small sync tax (auto-burned) if they remain inactive for long periods.</p>
+                        <div class="note">
+                            <div class="note-title">Cap Discipline</div>
+                            <p>No additional minting. WarpSynk's economic rules are code-locked and transparently governed.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-check-circle"></i> Why It Matters
+                        </h3>
+                        <ul>
+                            <li><span class="highlight">Sustainable:</span> Rewards align with real use, not hype</li>
+                            <li><span class="highlight">Fair:</span> Users who help the protocol earn the most</li>
+                            <li><span class="highlight">Deflationary:</span> The more WarpSynk is used, the more scarce $WSYNK becomes</li>
+                            <li><span class="highlight">Governable:</span> Token holders vote, not central authorities</li>
+                        </ul>
+                        <div class="success">
+                            <div class="success-title">Summary</div>
+                            <p>WarpSynk is built for participation, not speculation. The more people sync, the stronger $WSYNK becomes — in value, utility, and governance.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="use-cases" class="content-section">
+                    <h2>Real-World Use Cases</h2>
+                    <p>Why WarpSynk matters beyond the code — powering the sync layer of everyday life.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-wallet"></i> Cross-Chain Wallet Sync
+                        </h3>
+                        <h4>The Problem:</h4>
+                        <p>Users with multiple wallets on different blockchains constantly have to switch apps, refresh balances, and track separate histories.</p>
+                        <h4>With WarpSynk:</h4>
+                        <ul>
+                            <li>Balances update in real time across chains</li>
+                            <li>NFT ownership status stays consistent across marketplaces</li>
+                            <li>Staking and transaction data is instantly reflected</li>
+                            <li>No lag</li>
+                        </ul>
+                        <h4>Outcome:</h4>
+                        <p>Unified, live wallet experience — no matter what blockchain you use.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-mobile"></i> Web2 Mobile App + Web3 Integration
+                        </h3>
+                        <h4>The Problem:</h4>
+                        <p>Web2 mobile apps (like fitness, music, or finance) struggle to securely connect to Web3 features without relying on third parties.</p>
+                        <h4>With WarpSynk:</h4>
+                        <ul>
+                            <li>A fitness app can sync user steps to an on-chain reward system</li>
+                            <li>A music platform can track listener activity across devices and issue real-time token rewards</li>
+                            <li>User identity and preferences are synced across multiple apps without giving up control</li>
+                        </ul>
+                        <h4>Outcome:</h4>
+                        <p>Real-world adoption of Web3 without friction.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-line"></i> DeFi Price Accuracy and Orders Syncing
+                        </h3>
+                        <h4>The Problem:</h4>
+                        <p>In fast DeFi markets, price discrepancies between platforms lead to failed trades or unfair slippage.</p>
+                        <h4>With WarpSynk:</h4>
+                        <ul>
+                            <li>All order books, trades, and pricing data can be synced in milliseconds across networks</li>
+                            <li>Arbitrage bots don't get an edge over average users</li>
+                            <li>Users see the same data — instantly and reliably</li>
+                        </ul>
+                        <h4>Outcome:</h4>
+                        <p>Fairer, faster, and safer DeFi for all participants.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-gamepad"></i> Multi-chain Game state Sync
+                        </h3>
+                        <h4>The Problem:</h4>
+                        <p>Blockchain-based games are laggy, fragmented, and inconsistent when played across devices or chains.</p>
+                        <h4>With WarpSynk:</h4>
+                        <ul>
+                            <li>Game items, scores, and character states stay updated whether on-chain or off-chain</li>
+                            <li>Real-time sync means seamless PvP and multiplayer gameplay</li>
+                            <li>Developers can sync NFTs, logic, and achievements across chains</li>
+                        </ul>
+                        <h4>Outcome:</h4>
+                        <p>Web3 games feel as fast and smooth as traditional games.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-heartbeat"></i> Privacy-Safe Health or Identity Data Sync
+                        </h3>
+                        <h4>The Problem:</h4>
+                        <p>Users don't want to store sensitive health or ID data on centralized servers, but syncing across apps is difficult.</p>
+                        <h4>With WarpSynk:</h4>
+                        <ul>
+                            <li>Users can choose "Shielded Sync Mode" to privately sync their medical records or IDs</li>
+                            <li>They control who can access the data and for how long</li>
+                            <li>Sync logs are immutable — no tampering or hidden access</li>
+                        </ul>
+                        <h4>Outcome:</h4>
+                        <p>Personal data flows safely across borders, apps, and services without leaks or lock-in.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-vote-yea"></i> DAO Coordination & Time-sensitive Voting
+                        </h3>
+                        <h4>The Problem:</h4>
+                        <p>DAOs struggle with syncing proposals, votes, and results across members in different time zones and platforms.</p>
+                        <h4>With WarpSynk:</h4>
+                        <ul>
+                            <li>Voting windows and quorum statuses update in real-time across all platforms (mobile, web, dApps)</li>
+                            <li>Timestamp consensus ensures trust in vote timing and order</li>
+                            <li>The results sync instantly across apps and dashboards</li>
+                        </ul>
+                        <h4>Outcome:</h4>
+                        <p>Coordinated governance with no delays or disputes.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-hands-helping"></i> Humanitarian Use: Aid Sync in Crisis Zones
+                        </h3>
+                        <h4>The Problem:</h4>
+                        <p>During disasters, aid records, recipient data, and fund flows are often lost or manipulated.</p>
+                        <h4>With WarpSynk:</h4>
+                        <ul>
+                            <li>Donations, beneficiary lists, and delivery logs are synced across ground teams and HQ</li>
+                            <li>Even low-power mobile devices can verify and sync in real time</li>
+                            <li>Local communities keep track of what's received — and what's not</li>
+                        </ul>
+                        <h4>Outcome:</h4>
+                        <p>Radical transparency and accountability in humanitarian missions.</p>
+                    </div>
+
+                    <div class="success">
+                        <div class="success-title">Summary</div>
+                        <p>WarpSynk isn't just a backend protocol. It's the invisible glue that brings systems, chains, and people into harmony — from finance to games to public health.</p>
+                    </div>
+                </section>
+
+                <section id="privacy-security" class="content-section">
+                    <h2>Privacy & Security</h2>
+                    <p>WarpSynk Protocol puts users, not corporations, in charge of their own data.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-shield"></i> The Age of Data Control is overdue
+                        </h3>
+                        <p>In today's digital world, data is collected, stored, and sold — often without consent. Apps track everything, servers log everything, and users lose control the moment data leaves their device.</p>
+                        <p>WarpSynk flips this reality. It gives users the power to decide what gets synced, who sees it, and when.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-sync"></i> Open Sync Vs Shielded Sync
+                        </h3>
+                        <p>WarpSynk offers two main syncing modes — both privacy-first:</p>
+                        <h4>Open/Public Sync:</h4>
+                        <p>This is ideal for shared state (e.g., public logs, DAO records, decentralized scores). It's fast, transparent, and verifiable.</p>
+                        <h4>Shielded/Personal Sync:</h4>
+                        <p>This is End-to-end encrypted (E2EE) sync for private data (e.g., health records, chats, finance). Only the user and chosen parties can see the synced content. All data is tagged and time-stamped, but private syncs never reveal content to the network.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-check"></i> Zero Trust, Maximum Trustworthiness
+                        </h3>
+                        <p>WarpSynk assumes no node or system is fully trustworthy — which is why it uses:</p>
+                        <ul>
+                            <li><span class="highlight">Encrypted payloads</span> — data stays hidden even during transit</li>
+                            <li><span class="highlight">Proof of Sync (PoSync)</span> — verifies data changed, without exposing what it is</li>
+                            <li><span class="highlight">Consent-first architecture</span> — syncs don't happen unless the user or system triggers them</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Key Design Principle</div>
+                            <p>Even the network can't decrypt your personal sync data — and that's by design.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-id-card"></i> User-Centric Identity & Data Sovereignty
+                        </h3>
+                        <p>Every WarpSynk user has a SynkID — a lightweight, decentralized identity that:</p>
+                        <ul>
+                            <li>Controls what data is synced</li>
+                            <li>Links to multiple wallets or systems</li>
+                            <li>Never requires KYC or real-world ID</li>
+                            <li>Can operate anonymously, pseudonymously, or openly — your choice</li>
+                        </ul>
+                        <div class="success">
+                            <div class="success-title">Core Principle</div>
+                            <p>Your data belongs to you. Your sync logs belong to you. WarpSynk makes that real — not just a marketing line.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-eye-slash"></i> Syncing with Purpose, Not Surveillance
+                        </h3>
+                        <p>WarpSynk avoids surveillance by default:</p>
+                        <ul>
+                            <li>No tracking cookies</li>
+                            <li>No centralized dashboards</li>
+                            <li>No targeted ads</li>
+                            <li>No secret analytics</li>
+                        </ul>
+                        <p>It's a protocol, not a platform. And it's open-source, so anyone can verify how it works.</p>
+                        <div class="success">
+                            <div class="success-title">Outcome</div>
+                            <p>Sync becomes empowering — not exploitative.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-shield-alt"></i> Security Mechanisms
+                        </h3>
+                        <p>WarpSynk keeps your data safe, your identity yours, and your syncs bulletproof.</p>
+                        <h4>End-to-End Encryption (E2EE)</h4>
+                        <p>Every private sync is encrypted and stored in a secure SynkVault before propagation. From the moment data leaves your device until it reaches the trusted receiver, no middle point (not even WarpSynk Protocol) can read or store the contents.</p>
+                        <h4>Zero-Trust Protocol Layers</h4>
+                        <p>WarpSynk assumes that any part of the network — even your own device — can be compromised. So we follow Zero Trust principles:</p>
+                        <ul>
+                            <li>No node is trusted by default</li>
+                            <li>Every request is verified</li>
+                            <li>Every data packet carries integrity checks</li>
+                            <li>Syncs happen only with verified peers</li>
+                        </ul>
+                        <h4>Device Authorization Layers</h4>
+                        <p>Before any sync is allowed, devices must be authorized through multi-layered checks:</p>
+                        <ul>
+                            <li>Signature-based authentication using your wallet or SynkID</li>
+                            <li>Session-based approval so temporary devices don't get full access</li>
+                            <li>Optional biometric locks for high-sensitivity syncing</li>
+                        </ul>
+                        <h4>Zero-Knowledge Proof (ZKP) Integrations</h4>
+                        <p>WarpSynk can prove that a specific sync happened without showing what was synced. This is made possible by Zero-Knowledge Proofs — cryptographic magic that says: "I can prove this data is accurate, without showing you the data itself."</p>
+                        <h4>No Backdoors, No Tracking, No Logs</h4>
+                        <p>WarpSynk's open-source protocol has no hidden logging systems, no third-party analytics, no ad-tech hooks, and no ability to "call home" for secret data extraction.</p>
+                        <div class="success">
+                            <div class="success-title">Summary</div>
+                            <p>WarpSynk isn't "secure" because we say it is — it's secure because the code, math, and network structure make it so. Your data stays yours. Your identity stays private. Your syncs can't be faked, spied on, or sold.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="developer-tools" class="content-section">
+                    <h2>Developer Tools and SDKs</h2>
+                    <p>WarpSynk is built to be adopted — and that means empowering developers with intuitive, powerful tools to build synced apps fast.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-toolbox"></i> SynkKit: Multi-Platform Developer SDKs
+                        </h3>
+                        <p>SynkKit is the core toolkit that lets developers plug into the WarpSynk Protocol with minimal effort. It's available for:</p>
+                        <ul>
+                            <li><span class="highlight">iOS & Android</span> – Build mobile apps that sync with Web3 and other devices in real time</li>
+                            <li><span class="highlight">JavaScript</span> – Enables browser-based apps, extensions, and dashboards to sync without backend dependencies</li>
+                            <li><span class="highlight">Solidity</span> – Brings native syncing into smart contracts with WarpSynk's on-chain libraries</li>
+                        </ul>
+                        <p>These SDKs are lightweight, modular, and designed with real-world app constraints in mind.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-code"></i> WarpAPI: Web2 Integration Layer
+                        </h3>
+                        <p>WarpAPI lets traditional apps and platforms connect to the WarpSynk mesh:</p>
+                        <ul>
+                            <li>RESTful & GraphQL endpoints</li>
+                            <li>Auth tokens with expiration</li>
+                            <li>Data sync logs and rollback options</li>
+                            <li>Developer dashboards for monitoring sync flow all in one protocol</li>
+                        </ul>
+                        <p>WarpAPI makes it easy for legacy systems and enterprise software to sync without touching blockchain code.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-vial"></i> Sandbox Environments & Node Emulators
+                        </h3>
+                        <p>To make building and testing easy:</p>
+                        <ul>
+                            <li><span class="highlight">Local Mesh Simulators</span> – Run small-scale WarpSynk networks on a laptop</li>
+                            <li><span class="highlight">Node Emulator</span> – Mimics a full SynkNode for offline testing</li>
+                            <li><span class="highlight">Live Testnet</span> – Connect your app to a test version of the SyncMesh and watch it interact with other nodes</li>
+                        </ul>
+                        <p>These tools reduce build friction, increase confidence, and get developers to deployment faster.</p>
+                    </div>
+
+                    <div class="success">
+                        <div class="success-title">Why This Matters</div>
+                        <p>Developers are the engine of any protocol. WarpSynk's tools are designed so any builder — Web2 or Web3 — can quickly create real-time, secure, synced experiences.</p>
+                    </div>
+                </section>
+
+                <section id="governance" class="content-section">
+                    <h2>Governance Model: Decentralization Through $WSYNK</h2>
+                    <p>Control isn't given. It's earned — and shared. WarpSynk's evolution belongs to its community.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-democrat"></i> Why Governance Matters
+                        </h3>
+                        <p>Most digital platforms evolve behind closed doors. WarpSynk flips that model: no secret boardrooms, no invisible hands.</p>
+                        <p>Instead, $WSYNK token and SynkPass NFT holders shape the future of the protocol — from technical upgrades to community funds. This isn't symbolic governance. It's real, enforceable, and on-chain.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-weight-hanging"></i> Weighted Voting with $WSYNK and SynkPass NFTs
+                        </h3>
+                        <p>Anyone holding $WSYNK and SynkPass NFT has a say. The more you hold (or stake), the more weight your vote carries — but with balancing mechanisms in place.</p>
+                        <p>Voting includes:</p>
+                        <ul>
+                            <li>Protocol upgrades (e.g. adding new sync types or chains)</li>
+                            <li>Economic adjustments (fees, staking ratios)</li>
+                            <li>Partnership integrations (which systems to prioritize)</li>
+                            <li>Community initiatives (funding, marketing, DAO initiatives)</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Transparency</div>
+                            <p>All votes are time-locked, auditable, and executed via smart contracts. No tampering. No overriding. Just democratic sync.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-lightbulb"></i> Creating Proposals
+                        </h3>
+                        <p>Any qualified $WSYNK and SynkPass holder can propose a change — not just Devs or insiders.</p>
+                        <p>To prevent spam:</p>
+                        <ul>
+                            <li>A minimum token stake is required to create a proposal</li>
+                            <li>Proposals must go through a discussion period (via the SynkDAO portal)</li>
+                            <li>Only validated proposals go to final voting</li>
+                        </ul>
+                        <p>This ensures serious ideas rise to the top, while still remaining open to all.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-piggy-bank"></i> Treasury Control and Use
+                        </h3>
+                        <p>WarpSynk includes a community treasury, seeded from:</p>
+                        <ul>
+                            <li>A share of protocol fees</li>
+                            <li>Allocated $WSYNK from genesis</li>
+                            <li>Voluntary contributions</li>
+                            <li>Slashed penalties</li>
+                        </ul>
+                        <p>Use of treasury funds requires community approval.</p>
+                        <p>Examples of treasury uses include:</p>
+                        <ul>
+                            <li>Funding new node infrastructure in underserved regions</li>
+                            <li>Rewarding community contributors or educational campaigns</li>
+                            <li>Supporting third-party dApps developers building with WarpSynk Protocol</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Transparency</div>
+                            <p>All treasury movements are transparent and governed by smart contracts.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-users"></i> Anti-Plutocracy Measures
+                        </h3>
+                        <p>We believe in power through contribution — not just accumulation. To avoid centralization by whales:</p>
+                        <ul>
+                            <li><span class="highlight">Quadratic voting</span> can be activated — where small holders have proportionally more say</li>
+                            <li><span class="highlight">Proposal limits</span> restrict how often a single wallet can propose within a time window</li>
+                            <li><span class="highlight">Delegated voting</span> allows non-tech users to lend their vote to trusted representatives — increasing inclusion without needing direct governance knowledge</li>
+                        </ul>
+                        <div class="success">
+                            <div class="success-title">Goal</div>
+                            <p>WarpSynk's goal is a collaborative ecosystem, not a new kind of monarchy.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-sync-alt"></i> Governance as a Living Process
+                        </h3>
+                        <p>This model will evolve. WarpSynk's community will vote on how to adjust voting thresholds, economic models, and proposal logic over time.</p>
+                        <div class="success">
+                            <div class="success-title">Vision</div>
+                            <p>We're not just building a product — we're building a political economy of sync.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="roadmap" class="content-section">
+                    <h2>Roadmap</h2>
+                    <p>The journey to WarpSynk's full mainnet launch is carefully planned to ensure smooth scaling, meaningful partnerships, and community-driven growth.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-flask"></i> Q2 2025 – Q4 2025: Research, Design, and Prototyping
+                        </h3>
+                        <ul>
+                            <li><span class="highlight">Core Research</span> – Deepening our understanding of cross-chain data synchronization, latency optimization, and privacy protocols</li>
+                            <li><span class="highlight">Architecture Finalization</span> – Completing the technical blueprints of the WarpSynk Protocol, with a clear focus on scalability and security</li>
+                            <li><span class="highlight">UI/UX Design</span> – Creating intuitive user experiences for both end-users and developers, including the SynkPass NFT interface and node management dashboard</li>
+                            <li><span class="highlight">Partnership Development</span> – Early outreach to strategic partners in Web3, IoT, DeFi, and gaming for future integration</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Key Deliverable</div>
+                            <p>Prototype & Test Environment Ready</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-rocket"></i> Q1 2026: Testnet Launch & Early Partner Onboarding
+                        </h3>
+                        <ul>
+                            <li><span class="highlight">Testnet Rollout</span> – Launching the first public testnet, allowing developers and early adopters to begin using WarpSynk in a controlled environment</li>
+                            <li><span class="highlight">Bug Bounties & Incentives</span> – Launching bounty programs for identifying vulnerabilities and improving the codebase</li>
+                            <li><span class="highlight">Early Partner Integrations</span> – Onboarding blockchain projects, apps, and businesses that will use WarpSynk for data synchronization in test mode</li>
+                            <li><span class="highlight">Beta SynkPass Distribution</span> – Giving early users and supporters their SynkPass NFTs, unlocking access to exclusive rewards</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Key Deliverable</div>
+                            <p>Functional Testnet & Developer Network Engaged</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-coins"></i> Q2 2026: Token Generation Event (TGE), Allocation and Mass Adoption Campaigns
+                        </h3>
+                        <ul>
+                            <li><span class="highlight">TGE</span> – Official launch of the $WSYNK token, with a strategic airdrop and listing on major decentralized and centralized exchanges</li>
+                            <li><span class="highlight">SynkPass NFT Drop</span> – Issuance of limited-edition SynkPass NFTs to early backers and supporters, boosting protocol engagement</li>
+                            <li><span class="highlight">Community Growth Initiatives</span> – Amplifying our referral, ambassador, and bounty programs to attract a global community of developers and users</li>
+                            <li><span class="highlight">Marketing and PR</span> – Conducting a worldwide campaign to introduce WarpSynk's value proposition, emphasizing interoperability, privacy, and decentralized data synchronization</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Key Deliverable</div>
+                            <p>Mainnet Launch & Network Activation</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-layer-group"></i> 2027 and Beyond: Full SynkDAO Handoff and Layer-2 Integrations
+                        </h3>
+                        <ul>
+                            <li><span class="highlight">Governance Transition</span> – Moving the protocol's governance fully on-chain, with $WSYNK token and SynkPass NFT holders voting on major updates and decisions</li>
+                            <li><span class="highlight">Layer-2 Scaling</span> – Introducing Layer-2 solutions for faster, more efficient data sync at a lower cost, unlocking broader scalability</li>
+                            <li><span class="highlight">Full Interoperability</span> – Completing integrations with major blockchain ecosystems, decentralized applications, and IoT networks</li>
+                            <li><span class="highlight">Global Adoption</span> – Enabling WarpSynk to power real-time data synchronization across industries, from finance to gaming, healthcare, and beyond</li>
+                        </ul>
+                        <div class="note">
+                            <div class="note-title">Key Deliverable</div>
+                            <p>Decentralized Governance & Multi-Chain Support</p>
+                        </div>
+                    </div>
+
+                    <div class="success">
+                        <div class="success-title">The Vision for 2027+</div>
+                        <p>By 2027, WarpSynk will not just be a protocol but a global backbone for decentralized data synchronization and DataFi marketplace, trusted across millions of devices, applications, and industries. The protocol will evolve into a fully decentralized network with governance controlled by the community – the true embodiment of Web3.</p>
+                    </div>
+                </section>
+
+                <section id="partnerships" class="content-section">
+                    <h2>Strategic Partnerships and Integrations</h2>
+                    <p>Strategic partnerships and integrations are fundamental to the long-term success of WarpSynk Protocol. By collaborating with leading players across various sectors, WarpSynk can enhance its adoption, expand its ecosystem, and maximize its impact.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-heartbeat"></i> Health Sector
+                        </h3>
+                        <p>The healthcare industry is increasingly digitalized, with vast amounts of sensitive data generated by medical devices, health records, and wearables. Synchronizing this data securely and efficiently in real-time is critical for enhancing patient care, reducing errors, and improving healthcare outcomes.</p>
+                        <h4>Potential Collaborations:</h4>
+                        <ul>
+                            <li><span class="highlight">Electronic Health Records (EHR) Systems:</span> By integrating WarpSynk, healthcare providers can seamlessly synchronize patient data across multiple systems and jurisdictions in real-time</li>
+                            <li><span class="highlight">Medical IoT Devices:</span> WarpSynk could play a pivotal role in synchronizing data between connected medical devices like wearables, heart monitors, and glucose meters</li>
+                            <li><span class="highlight">Real-Time Epidemic Monitoring:</span> The decentralized nature of WarpSynk allows real-time sharing of health data across borders, aiding in quicker responses to health crises</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-line"></i> Finance Sector
+                        </h3>
+                        <p>The financial services industry requires accurate, real-time data to facilitate transactions, risk management, compliance, and decision-making. However, traditional systems are often slow, fragmented, and prone to inefficiencies, especially when dealing with cross-border payments, data reconciliation, and asset management.</p>
+                        <h4>Potential Collaborations:</h4>
+                        <ul>
+                            <li><span class="highlight">Cross-Border Payments:</span> WarpSynk can facilitate secure, real-time synchronization of data between financial institutions, enabling faster and more cost-effective cross-border payments</li>
+                            <li><span class="highlight">Decentralized Finance (DeFi):</span> DeFi protocols require real-time data synchronization to ensure the integrity of decentralized financial products like lending, staking, and yield farming</li>
+                            <li><span class="highlight">Regulatory Compliance:</span> With its focus on secure, private, and synchronized data, WarpSynk can aid financial institutions in meeting compliance requirements</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-id-card"></i> Identity and Authentication
+                        </h3>
+                        <p>Identity verification is a cornerstone of modern digital interactions. Ensuring that users' identities are validated in real-time, across multiple platforms, and without compromising privacy is a significant challenge.</p>
+                        <h4>Potential Collaborations:</h4>
+                        <ul>
+                            <li><span class="highlight">Digital Identity Platforms:</span> WarpSynk can integrate with decentralized identity systems, allowing users to manage and share their identity data securely and in real-time</li>
+                            <li><span class="highlight">KYC/AML Compliance:</span> Financial institutions and digital platforms require Know Your Customer (KYC) and Anti-Money Laundering (AML) compliance checks</li>
+                            <li><span class="highlight">Single Sign-On (SSO) Systems:</span> WarpSynk could be leveraged to synchronize authentication data across multiple platforms</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-wifi"></i> Internet of Things (IoT)
+                        </h3>
+                        <p>The IoT sector is rapidly expanding, with billions of connected devices producing and sharing vast amounts of data every second. Synchronizing this data efficiently and securely is critical to ensuring that IoT devices function optimally and interact seamlessly within larger systems.</p>
+                        <h4>Potential Collaborations:</h4>
+                        <ul>
+                            <li><span class="highlight">Smart Cities:</span> WarpSynk can enable real-time synchronization of data across multiple IoT devices within smart cities</li>
+                            <li><span class="highlight">Industrial IoT (IIoT):</span> In industries such as manufacturing, agriculture, and logistics, WarpSynk can provide real-time data synchronization across a wide array of devices and machines</li>
+                            <li><span class="highlight">Home Automation:</span> WarpSynk could integrate with smart home devices like thermostats, lighting, security cameras, and appliances</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-shipping-fast"></i> Smart Logistics and Supply Chain
+                        </h3>
+                        <p>The global supply chain and logistics industry faces numerous challenges, including inefficiencies, delays, and lack of transparency. Real-time synchronization of data across all levels of the supply chain is essential for improving visibility, tracking goods, and ensuring timely deliveries.</p>
+                        <h4>Potential Collaborations:</h4>
+                        <ul>
+                            <li><span class="highlight">Real-Time Shipment Tracking:</span> WarpSynk can enable real-time synchronization of data across shipping companies, warehouse management systems, and transportation providers</li>
+                            <li><span class="highlight">Inventory Management:</span> By synchronizing inventory data across multiple locations in real-time, businesses can optimize stock levels, reduce waste, and improve their supply chain management</li>
+                            <li><span class="highlight">Cross-Border Logistics:</span> With decentralized synchronization, WarpSynk can enable smoother customs clearance and documentation processes across borders</li>
+                        </ul>
+                    </div>
+
+                    <div class="success">
+                        <div class="success-title">Conclusion</div>
+                        <p>Strategic partnerships with key sectors such as health, finance, identity management, IoT, and smart logistics will help WarpSynk expand its ecosystem and drive adoption. By integrating with existing infrastructure, WarpSynk can offer seamless, real-time data synchronization, creating immense value for industries seeking to improve efficiency, privacy, and scalability in a decentralized future.</p>
+                    </div>
+                </section>
+
+                <section id="risk-analysis" class="content-section">
+                    <h2>Risk Analysis and Mitigation</h2>
+                    <p>As with any cutting-edge technology, WarpSynk faces several challenges and risks. Understanding these risks and implementing effective mitigation strategies is crucial for the long-term success of the protocol.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-network-wired"></i> Network Bloat and Node Dropout
+                        </h3>
+                        <h4>Risk:</h4>
+                        <p>As the WarpSynk network scales, the potential for network congestion or node dropout becomes a concern. If nodes drop off the network, data synchronization may slow down, affecting performance and user experience. Additionally, if the network becomes overburdened with too many data requests, delays and bottlenecks could arise.</p>
+                        <h4>Mitigation:</h4>
+                        <ul>
+                            <li><span class="highlight">Incentive Models</span> – To ensure nodes remain active and functional, we will incentivize nodes that are highly available and provide reliable data</li>
+                            <li><span class="highlight">Lightweight Nodes</span> – By designing the protocol to be node-friendly, WarpSynk allows lightweight nodes to participate in the network</li>
+                            <li><span class="highlight">Automatic Load Balancing</span> – We will implement automatic load balancing and intelligent routing to ensure that data sync traffic is efficiently distributed across the network</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-secret"></i> Economic Attack Vectors
+                        </h3>
+                        <h4>Risk:</h4>
+                        <p>Economic attacks such as Sybil attacks or malicious node behavior could threaten the integrity of the WarpSynk network. These attacks could be used to flood the network with fake nodes, compromise data integrity, or manipulate the protocol's governance mechanisms.</p>
+                        <h4>Mitigation:</h4>
+                        <ul>
+                            <li><span class="highlight">Proof of Sync (PoSync)</span> – The core consensus mechanism requires nodes to validate and verify the synchronization of data</li>
+                            <li><span class="highlight">Stake-Based Incentives</span> – To reduce Sybil attacks, the network will require nodes to stake a certain amount of $WSYNK tokens to participate</li>
+                            <li><span class="highlight">Anti-Spam Measures</span> – WarpSynk will use micro-fees and penalties to deter spam attacks</li>
+                            <li><span class="highlight">Node Reputation System</span> – Nodes will accumulate reputation scores based on their performance and reliability</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-tachometer-alt"></i> Governance Stagnation
+                        </h3>
+                        <h4>Risk:</h4>
+                        <p>Governance stagnation occurs when decision-making processes become slow, inefficient, or dominated by a small group of participants. In a decentralized ecosystem like WarpSynk, governance is key to making updates, scaling, and evolving the protocol, but if governance becomes stagnant, it could result in missed opportunities for improvement or innovation.</p>
+                        <h4>Mitigation:</h4>
+                        <ul>
+                            <li><span class="highlight">Active Governance with $WSYNK</span> – The governance model will rely on active participation from $WSYNK token holders</li>
+                            <li><span class="highlight">DAO (Decentralized Autonomous Organization) Setup</span> – The protocol will transition into a fully decentralized DAO</li>
+                            <li><span class="highlight">Anti-Plutocracy Safeguards</span> – To prevent governance being dominated by a small group of wealthy individuals</li>
+                            <li><span class="highlight">Governance Incentives</span> – Token-based rewards will be given to participants who actively engage in the governance process</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-gavel"></i> Regulatory Risks
+                        </h3>
+                        <h4>Risk:</h4>
+                        <p>As the Web3 space grows, it faces increasing scrutiny from regulators across the globe. Potential regulatory restrictions on cryptocurrencies, decentralized networks, or tokenized economies could impact WarpSynk's operations or token distribution.</p>
+                        <h4>Mitigation:</h4>
+                        <ul>
+                            <li><span class="highlight">Legal Compliance Framework</span> – WarpSynk will work with legal advisors to ensure full compliance with relevant regulations</li>
+                            <li><span class="highlight">Geographic Adaptation</span> – We will create a flexible system that can adapt to different regulatory environments</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-cogs"></i> Technological Complexity and Adoption
+                        </h3>
+                        <h4>Risk:</h4>
+                        <p>Given the innovative nature of WarpSynk's protocol, it could face resistance in adoption due to its complexity. Developers and users may initially be skeptical of the system or find it difficult to integrate into their existing workflows.</p>
+                        <h4>Mitigation:</h4>
+                        <ul>
+                            <li><span class="highlight">Developer Tools and SDKs</span> – WarpSynk will provide robust developer tools, including the SynkKit SDK and WarpAPI</li>
+                            <li><span class="highlight">Community Engagement</span> – To ensure that the technology is widely adopted, we'll focus on community-driven efforts</li>
+                        </ul>
+                    </div>
+
+                    <div class="success">
+                        <div class="success-title">Conclusion</div>
+                        <p>While WarpSynk faces several risks as we scale and mature the protocol, we have implemented a thorough risk mitigation strategy. By designing the system with security, decentralization, and scalability in mind, we aim to minimize these risks and ensure the long-term sustainability of the network.</p>
+                    </div>
+                </section>
+
+                <section id="legal-regulatory" class="content-section">
+                    <h2>Legal and Regulatory Stance</h2>
+                    <p>As the decentralized and blockchain-powered world rapidly evolves, the legal and regulatory landscape remains one of the most challenging and dynamic areas for Web3 protocols. WarpSynk Protocol, understanding the necessity of legal compliance, aims to create a solution that maintains full adherence to global standards while protecting the fundamental ideals of decentralization and individual sovereignty.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-balance-scale"></i> Protocol Compliance Without Centralization
+                        </h3>
+                        <p>One of the core principles behind WarpSynk is the ability to comply with legal frameworks across jurisdictions, without compromising the decentralized nature of the protocol.</p>
+                        <h4>Decentralized Autonomous Governance (DAO)</h4>
+                        <p>WarpSynk embraces the decentralized autonomous organization (DAO) governance model, where decisions are made collectively by the community through transparent and immutable voting. This ensures that no single entity or central authority can unilaterally decide on protocol changes or governance decisions.</p>
+                        <h4>Global Compliance through Smart Contracts</h4>
+                        <p>WarpSynk ensures that its protocols and smart contracts comply with the relevant regulatory frameworks by embedding compliance features directly within the code. This can include features like geo-fencing, automatic compliance with anti-money laundering (AML) and know your customer (KYC) regulations, and data protection mechanisms like GDPR compliance.</p>
+                        <h4>Protocol Features for Legal Adherence</h4>
+                        <ul>
+                            <li><span class="highlight">Data Sovereignty:</span> WarpSynk allows individuals to control the storage and sharing of their data, ensuring that data residency laws are respected</li>
+                            <li><span class="highlight">Permissioned and permissionless layers:</span> The protocol offers both permissioned and permissionless layers, allowing regulated entities to use the permissioned layer while preserving privacy on the permissionless layer</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-lock"></i> User Responsibility and Self-Custody Emphasis
+                        </h3>
+                        <p>WarpSynk places a significant emphasis on self-custody and user responsibility. This approach is grounded in the belief that users should retain full control over their assets, data, and actions.</p>
+                        <h4>Self-Custody of Digital Assets</h4>
+                        <p>One of the most empowering aspects of WarpSynk is that users are responsible for their own digital assets, including tokens, credentials, and other forms of data. By enabling self-custody, WarpSynk ensures that individuals maintain control of their personal information and assets.</p>
+                        <h4>Decentralized Identity Management</h4>
+                        <p>WarpSynk offers a self-sovereign identity (SSI) system, allowing users to manage their identities without the need for central authorities or intermediaries. This not only increases privacy and security but also puts users in charge of their identity.</p>
+                        <h4>User-Centric Privacy Controls</h4>
+                        <p>WarpSynk provides users with advanced privacy features, such as encrypted personal sync channels, and granular control over who can access their data. This ensures that users maintain full ownership over their data and decide the terms of its sharing.</p>
+                        <h4>Accountability and Informed Consent</h4>
+                        <p>WarpSynk also ensures that users are fully aware of their responsibilities and the implications of their actions within the network. The protocol emphasizes informed consent, requiring users to agree to terms and understand the functions of various services.</p>
+                        <h4>Education and Resources</h4>
+                        <p>WarpSynk is committed to providing educational resources to help users understand the importance of self-custody and their legal responsibilities. Through tutorials, documentation, and community engagement, users are equipped with the knowledge needed to navigate the protocol safely, securely, and legally.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-landmark"></i> The Legal Landscape of Decentralization: Navigating Challenges
+                        </h3>
+                        <p>The decentralized nature of WarpSynk introduces challenges in terms of legal accountability. While the protocol itself cannot be regulated in the traditional sense, it still operates within a legal framework that varies by jurisdiction.</p>
+                        <h4>Regulation of Tokens</h4>
+                        <p>WarpSynk's $WSYNK token is designed with compliance in mind. While it functions as a utility token within the WarpSynk ecosystem, its classification may vary depending on local laws and regulations. WarpSynk works with legal experts to ensure the token remains compliant with securities and tax regulations in different regions.</p>
+                        <h4>Privacy Legislation and Data Protection</h4>
+                        <p>With the growing concern over data privacy, WarpSynk incorporates features that are designed to comply with global privacy legislation, including GDPR in Europe and the California Consumer Privacy Act (CCPA). This ensures that users' data rights are respected, and they have control over their personal information.</p>
+                        <h4>Smart Contract Liability and Jurisdiction</h4>
+                        <p>As WarpSynk grows and integrates with various decentralized applications, legal issues related to smart contracts may arise. In such cases, WarpSynk ensures that all parties interacting with the protocol are aware of the decentralized and autonomous nature of the system, and disputes are handled through decentralized governance mechanisms, not centralized authorities.</p>
+                    </div>
+
+                    <div class="success">
+                        <div class="success-title">Conclusion: A Balanced Approach</div>
+                        <p>WarpSynk Protocol takes a balanced approach to legal compliance, ensuring that the system operates within established legal frameworks without compromising the core principles of decentralization, user sovereignty, and privacy. The protocol's decentralized governance, self-custody features, and embedded compliance mechanisms enable it to navigate the complex regulatory landscape while maintaining the ideals of a decentralized future.</p>
+                    </div>
+                </section>
+
+                <section id="appendix" class="content-section">
+                    <h2>Appendix</h2>
+                    <p>The Appendix provides additional resources for readers to deepen their understanding of the WarpSynk Protocol, including definitions of key terms, a summary of technical parameters, technical diagrams, and placeholder information for future contract audits.</p>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-book"></i> Glossary of Key Terms
+                        </h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Term</th>
+                                        <th>Definition</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>$WSYNK</td>
+                                        <td>The native utility token of the WarpSynk Protocol. It is used for various network operations, including staking, governance, rewards, and paying protocol fees.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Decentralized Autonomous Organization (DAO)</td>
+                                        <td>A governance model within WarpSynk that enables the community to participate in decision-making processes through transparent voting mechanisms using $WSYNK tokens.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>End-to-End Encryption</td>
+                                        <td>A security protocol that ensures only the sender and recipient of data can access the content, preventing unauthorized third-party access.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Proof of Sync (PoSync)</td>
+                                        <td>The consensus mechanism used within the WarpSynk network to ensure that all synchronized data is accurate, consistent, and verifiable across nodes.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Self-Sovereign Identity (SSI)</td>
+                                        <td>A model for managing identity where users control their personal data without reliance on a central authority or identity provider.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SyncMesh Network</td>
+                                        <td>The distributed network of SynkNodes that facilitates seamless synchronization of data between decentralized applications, Web2 services, and Web3 environments.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SynkNode</td>
+                                        <td>A lightweight, multi-platform validator node within the WarpSynk network that helps propagate, validate, and secure the protocol's data synchronization.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SynkPass NFTs</td>
+                                        <td>Non-fungible tokens (NFTs) tied to the WarpSynk ecosystem that can provide various benefits, such as access to exclusive features, governance participation, and community rewards.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Zero-Knowledge Proofs (ZKPs)</td>
+                                        <td>Cryptographic techniques that allow one party to prove to another that they know a value without revealing the value itself, enhancing privacy and security.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-cogs"></i> Protocol Parameters
+                        </h3>
+                        <p>The following parameters define the essential technical aspects and configuration settings of the WarpSynk Protocol:</p>
+                        <ul>
+                            <li><span class="highlight">Consensus Mechanism:</span> Proof of Sync (PoSync) - ensures accurate synchronization and validation of data across the network</li>
+                            <li><span class="highlight">Total Token Supply:</span> 250,000,000 $WSYNK tokens - maximum supply with pre-defined distributions</li>
+                            <li><span class="highlight">Node Types:</span> Full Nodes (store and validate all data) and Light Nodes (validate subset of data)</li>
+                            <li><span class="highlight">Sync Speed (Latency):</span> Optimized for near-real-time synchronization across Web2 and Web3 platforms</li>
+                            <li><span class="highlight">Staking Rewards:</span> Node validators are incentivized with staking rewards paid in $WSYNK tokens</li>
+                            <li><span class="highlight">Transaction Fees:</span> A small fee is levied on each synchronization transaction to incentivize nodes</li>
+                            <li><span class="highlight">Governance:</span> Weighted voting based on $WSYNK token holdings</li>
+                            <li><span class="highlight">Privacy and Security:</span> End-to-end encryption, zero-trust protocols, and ZKPs ensure robust privacy and security</li>
+                            <li><span class="highlight">Protocol Upgrades:</span> DAO-based voting allows community members to propose and vote on protocol upgrades</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">
+                            <i class="fas fa-shield-alt"></i> Security Audits
+                        </h3>
+                        <p>While WarpSynk Protocol is designed with security and transparency at its core, it is essential to provide verifiable audits of the smart contract code to ensure compliance and integrity.</p>
+                        <h4>Smart Contract Audits:</h4>
+                        <p>Comprehensive audits will be performed by third-party blockchain security firms to ensure the absence of vulnerabilities in the protocol's smart contracts. These audits will cover code quality, security checks, and compliance with industry standards.</p>
+                        <h4>Ongoing Monitoring and Updates:</h4>
+                        <p>Following the audit, the protocol's smart contracts will be regularly monitored and updated to address any vulnerabilities that may arise in the future. This ensures that the WarpSynk Protocol remains secure and resistant to attacks or exploitations.</p>
+                        <h4>Audit Reports:</h4>
+                        <p>All audit reports will be publicly accessible to foster transparency and instill trust in the ecosystem. These reports will include detailed findings, remediation steps, and results of subsequent security tests.</p>
+                    </div>
+                </section>
+
+                <div class="action-buttons">
+                    <a href="index.html" class="btn">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-share-alt"></i> Share Documentation
+                    </a>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 WarpSynk Protocol. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"><i class="fab fa-discord"></i> Discord</a>
+                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#"><i class="fab fa-telegram"></i> Telegram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav item
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav item on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.content-section');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${currentSection}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.sidebar-search input').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Responsive sidebar behavior
+        function handleResize() {
+            const sidebar = document.querySelector('.sidebar');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (window.innerWidth <= 768) {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initialize on load
+    </script>
+</body>
+</html>
