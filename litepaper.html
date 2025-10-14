@@ -1,1 +1,1192 @@
-coming soon
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WarpSynk Protocol - Lite Paper</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #8a2be2;
+            --primary-dark: #6a1b9a;
+            --secondary: #00ffaa;
+            --accent: #00b4ff;
+            --dark: #0a0a14;
+            --darker: #05050a;
+            --light: #f0f0f5;
+            --gray: #6c757d;
+            --success: #00e676;
+            --warning: #ffc107;
+            --danger: #ff3d71;
+            --info: #00b4ff;
+
+            --glow-primary: 0 0 10px rgba(138, 43, 226, 0.7);
+            --glow-secondary: 0 0 10px rgba(0, 255, 170, 0.5);
+            --glow-accent: 0 0 10px rgba(0, 180, 255, 0.5);
+
+            /* Spacing variables */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+
+            /* Font sizes */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-md: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-xxl: 1.5rem;
+            --text-xxxl: 2rem;
+            --text-heading: 2.5rem;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: var(--light);
+            line-height: 1.6;
+            background-color: var(--dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 170, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Improved touch targets for mobile */
+        a, button {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            flex: 1;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(10, 10, 20, 0.9);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            padding: var(--space-md) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-weight: 700;
+            font-size: var(--text-xl);
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--secondary);
+            font-size: var(--text-xxl);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .nav-links a {
+            color: rgba(240, 240, 245, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: var(--text-xl);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: var(--space-xxl) 0 var(--space-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: var(--text-heading);
+            margin-bottom: var(--space-md);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+            line-height: 1.2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: var(--text-xl);
+            color: rgba(240, 240, 245, 0.8);
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+            line-height: 1.5;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        /* Quick Navigation */
+        .quick-nav {
+            background-color: rgba(20, 20, 30, 0.8);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-xl) auto;
+            max-width: 1000px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 1s ease 0.6s both;
+        }
+
+        .quick-nav h2 {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            color: var(--light);
+            font-size: var(--text-xxl);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .nav-card {
+            background-color: rgba(30, 30, 40, 0.7);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            text-align: center;
+            text-decoration: none;
+            color: var(--light);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+
+        .nav-card i {
+            font-size: var(--text-xxxl);
+            color: var(--secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .nav-card h3 {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-xs);
+        }
+
+        .nav-card p {
+            color: rgba(240, 240, 245, 0.7);
+            font-size: var(--text-sm);
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: var(--space-xxl);
+            scroll-margin-top: 100px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: var(--text-xxxl);
+            margin: var(--space-xl) 0 var(--space-lg);
+            color: var(--light);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            padding-bottom: var(--space-sm);
+        }
+
+        h3 {
+            font-size: var(--text-xxl);
+            margin: var(--space-lg) 0 var(--space-md);
+            color: var(--light);
+        }
+
+        h4 {
+            font-size: var(--text-xl);
+            margin: var(--space-lg) 0 var(--space-md);
+            color: var(--light);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+            color: rgba(240, 240, 245, 0.8);
+            line-height: 1.7;
+        }
+
+        ul, ol {
+            margin-bottom: var(--space-md);
+            padding-left: var(--space-xl);
+        }
+
+        li {
+            margin-bottom: var(--space-sm);
+            color: rgba(240, 240, 245, 0.8);
+            line-height: 1.6;
+        }
+
+        .card {
+            background-color: rgba(20, 20, 30, 0.8);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.5);
+        }
+
+        .card-title {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-md);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .card-title i {
+            color: var(--secondary);
+        }
+
+        .highlight {
+            background-color: rgba(0, 255, 170, 0.1);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .note {
+            background-color: rgba(0, 180, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .note-title {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        .success {
+            background-color: rgba(0, 230, 118, 0.1);
+            border-left: 4px solid var(--success);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+
+        .success-title {
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: var(--space-xs);
+        }
+
+        /* Tokenomics Section */
+        .tokenomics-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .tokenomics-chart {
+            position: relative;
+            height: 300px;
+        }
+
+        .tokenomics-details {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .token-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md);
+            background-color: rgba(30, 30, 40, 0.5);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary);
+        }
+
+        .token-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .token-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .token-value {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* Use Cases Grid */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .use-case-card {
+            background-color: rgba(20, 20, 30, 0.8);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2);
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+
+        .use-case-icon {
+            font-size: var(--text-xxxl);
+            color: var(--secondary);
+            margin-bottom: var(--space-md);
+            text-align: center;
+        }
+
+        .use-case-card h3 {
+            margin-bottom: var(--space-md);
+            color: var(--light);
+        }
+
+        .use-case-card p {
+            flex-grow: 1;
+            margin-bottom: var(--space-md);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--glow-primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(90deg, var(--secondary), #00cc88);
+            box-shadow: var(--glow-secondary);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(0, 255, 170, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(138, 43, 226, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(10, 10, 20, 0.9);
+            border-top: 1px solid rgba(138, 43, 226, 0.3);
+            padding: var(--space-xl) 0;
+            margin-top: var(--space-xxl);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-lg);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .footer-links a {
+            color: rgba(240, 240, 245, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            color: rgba(240, 240, 245, 0.5);
+            font-size: var(--text-sm);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Media Queries for Responsiveness */
+        /* Tablets and smaller desktops */
+        @media (max-width: 992px) {
+            :root {
+                --text-heading: 2.25rem;
+                --text-xxxl: 1.75rem;
+            }
+
+            .tokenomics-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .tokenomics-chart {
+                height: 250px;
+            }
+        }
+
+        /* Mobile devices */
+        @media (max-width: 768px) {
+            :root {
+                --text-heading: 2rem;
+                --text-xxxl: 1.5rem;
+                --text-xxl: 1.25rem;
+                --space-xl: 1.5rem;
+                --space-xxl: 2rem;
+            }
+
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: var(--space-sm);
+                margin-top: var(--space-md);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: var(--space-xl) 0 var(--space-lg);
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .use-cases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            :root {
+                --text-heading: 1.75rem;
+            }
+
+            .card {
+                padding: var(--space-md);
+            }
+
+            h2 {
+                font-size: var(--text-xxl);
+            }
+
+            h3 {
+                font-size: var(--text-xl);
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-md);
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .quick-nav, .hero-actions, footer {
+                display: none;
+            }
+
+            .card {
+                border: 1px solid #ccc;
+                backdrop-filter: none;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            .content-section {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary: #0000FF;
+                --secondary: #00FF00;
+                --accent: #FFFF00;
+                --dark: #000;
+                --light: #FFF;
+            }
+
+            .card, .quick-nav {
+                border-width: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-sync-alt logo-icon"></i>
+                <span>WarpSynk</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="docs.html"><i class="fas fa-book"></i> Full Documentation</a>
+                <a href="#"><i class="fas fa-code"></i> Developer</a>
+                <a href="#"><i class="fas fa-users"></i> Community</a>
+            </nav>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h1>WarpSynk Protocol</h1>
+            <p class="hero-subtitle">A universal, real-time sync layer across Web2 & Web3 - Lite Paper</p>
+            <div class="hero-actions">
+                <a href="#problem" class="btn">
+                    <i class="fas fa-play-circle"></i> Explore Lite Paper
+                </a>
+                <a href="docs.html" class="btn btn-secondary">
+                    <i class="fas fa-book"></i> Full Documentation
+                </a>
+                <a href="#tokenomics" class="btn btn-outline">
+                    <i class="fas fa-coins"></i> Tokenomics
+                </a>
+            </div>
+        </section>
+
+        <section class="quick-nav">
+            <h2>Quick Navigation</h2>
+            <div class="nav-grid">
+                <a href="#problem" class="nav-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>The Problem</h3>
+                    <p>Why we need a universal sync layer</p>
+                </a>
+                <a href="#solution" class="nav-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>The Solution</h3>
+                    <p>How WarpSynk solves data fragmentation</p>
+                </a>
+                <a href="#tokenomics" class="nav-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Tokenomics</h3>
+                    <p>$WSYNK token distribution & utility</p>
+                </a>
+                <a href="#usecases" class="nav-card">
+                    <i class="fas fa-cube"></i>
+                    <h3>Use Cases</h3>
+                    <p>Real-world applications</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="problem" class="content-section">
+            <h2>The Problem: Fragmented Digital World</h2>
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-puzzle-piece"></i> Data Silos Everywhere
+                </h3>
+                <p>Today's digital landscape is fragmented. Your data lives in thousands of places at once:</p>
+                <ul>
+                    <li>On your phone, in the cloud, inside one app but not another</li>
+                    <li>Across multiple blockchains with no easy bridge</li>
+                    <li>In Web2 systems that don't speak to Web3 natively</li>
+                </ul>
+                <p>These silos don't talk to each other. When they try, the cost is high — slow APIs, risky bridges, fragile integrations, and constant errors.</p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-clock"></i> The Latency Problem
+                </h3>
+                <p>Timing is everything. In financial systems, games, health tech, or logistics — a delay of milliseconds can mean:</p>
+                <ul>
+                    <li>Missed trades and broken game logic</li>
+                    <li>Duplicated payments and dangerous misinformation</li>
+                    <li>Frustrated users and lost opportunities</li>
+                </ul>
+                <p>When systems don't agree on who updated what and when, things break fast.</p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-eye-slash"></i> Surveillance & Control Issues
+                </h3>
+                <p>Every time you sync data through a major platform, you give up something — control, privacy, or both.</p>
+                <p>Current syncing means:</p>
+                <ul>
+                    <li>Routing through centralized servers</li>
+                    <li>Agreeing to vague terms-of-service</li>
+                    <li>Getting tracked, logged, and resold</li>
+                </ul>
+                <div class="note">
+                    <div class="note-title">The Result</div>
+                    <p>Developers spend more time patching sync issues than building value. Users suffer lag, duplicate steps, and broken features.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="content-section">
+            <h2>The Solution: WarpSynk Protocol</h2>
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-sync-alt"></i> Universal Sync Layer
+                </h3>
+                <p>WarpSynk is a decentralized system that keeps digital data in sync — across blockchains, devices, apps, and time.</p>
+                <p>It's not just a tool for developers. It's a foundation for a world where data flows freely, securely, and under user control.</p>
+                <div class="success">
+                    <div class="success-title">Our Mission</div>
+                    <p>"To make syncing data across platforms, chains, and devices effortless, secure, and unstoppable."</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-network-wired"></i> Core Architecture
+                </h3>
+                <h4>SyncMesh Network</h4>
+                <p>A decentralized mesh of nodes that work together to keep data synchronized across different devices, applications, and blockchains.</p>
+                
+                <h4>SynkNodes</h4>
+                <p>Lightweight, multi-platform programs that run on any device — phones, desktops, IoT devices, servers, even smart contracts.</p>
+                
+                <h4>Proof of Sync (PoSync)</h4>
+                <p>A custom consensus algorithm that verifies data was updated correctly, the sync state is fresh, and the timestamp is valid.</p>
+                
+                <h4>Privacy Modes</h4>
+                <p>Choose between Open/Public Sync for collaborative data or Encrypted Personal Sync for private use cases.</p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-layer-group"></i> Key Differentiators
+                </h3>
+                <p>WarpSynk isn't just another protocol. It coordinates time, state, and permissions across fragmented systems.</p>
+                <ul>
+                    <li><span class="highlight">Time-aware syncing:</span> Knows when data was created and updated</li>
+                    <li><span class="highlight">State validation:</span> Every sync includes verifiable proof</li>
+                    <li><span class="highlight">User-governed flow:</span> Data sharing happens on your terms</li>
+                    <li><span class="highlight">Compositional design:</span> Works across layers and chains</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="tokenomics" class="content-section">
+            <h2>Tokenomics: $WSYNK Token</h2>
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-coins"></i> Token Utility
+                </h3>
+                <p>The $WSYNK token serves as fuel for the Sync layer, powering the WarpSynk ecosystem:</p>
+                <ul>
+                    <li><span class="highlight">Sync Rewards:</span> Node operators earn $WSYNK for validating data</li>
+                    <li><span class="highlight">Node Staking:</span> Required to run SynkNodes, with slashing for bad behavior</li>
+                    <li><span class="highlight">Protocol Fees:</span> Micro-fees for private or enterprise-grade sync functions</li>
+                    <li><span class="highlight">Governance Rights:</span> Vote on protocol changes and ecosystem expansions</li>
+                </ul>
+            </div>
+
+            <div class="tokenomics-container">
+                <div class="tokenomics-chart">
+                    <canvas id="tokenomicsChart"></canvas>
+                </div>
+                <div class="tokenomics-details">
+                    <div class="token-item">
+                        <div class="token-label">
+                            <div class="token-color" style="background-color: #8a2be2;"></div>
+                            <span>Community & Airdrop</span>
+                        </div>
+                        <div class="token-value">50%</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-label">
+                            <div class="token-color" style="background-color: #00ffaa;"></div>
+                            <span>Ecosystem Growth</span>
+                        </div>
+                        <div class="token-value">25%</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-label">
+                            <div class="token-color" style="background-color: #00b4ff;"></div>
+                            <span>Liquidity & Exchanges</span>
+                        </div>
+                        <div class="token-value">10%</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-label">
+                            <div class="token-color" style="background-color: #6a1b9a;"></div>
+                            <span>Team & Advisors</span>
+                        </div>
+                        <div class="token-value">10%</div>
+                    </div>
+                    <div class="token-item">
+                        <div class="token-label">
+                            <div class="token-color" style="background-color: #ff3d71;"></div>
+                            <span>Protocol Reserve</span>
+                        </div>
+                        <div class="token-value">5%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-fire"></i> Token Details
+                </h3>
+                <ul>
+                    <li><span class="highlight">Total Supply:</span> 250,000,000 $WSYNK tokens (fixed, no inflation)</li>
+                    <li><span class="highlight">Ticker:</span> $WSYNK</li>
+                    <li><span class="highlight">Burn Mechanism:</span> A portion of protocol fees is burned automatically</li>
+                    <li><span class="highlight">Launch:</span> TGE in Q2 2026</li>
+                </ul>
+                <div class="note">
+                    <div class="note-title">Economic Design</div>
+                    <p>The more WarpSynk is used, the more scarce $WSYNK becomes. This creates a sustainable, deflationary economy aligned with real usage, not speculation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="usecases" class="content-section">
+            <h2>Real-World Use Cases</h2>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Cross-Chain Wallet Sync</h3>
+                    <p>Balances update in real time across chains. NFT ownership status stays consistent across marketplaces with no lag.</p>
+                    <div class="success">
+                        <div class="success-title">Outcome</div>
+                        <p>Unified, live wallet experience — no matter what blockchain you use.</p>
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-mobile"></i>
+                    </div>
+                    <h3>Web2 + Web3 Integration</h3>
+                    <p>Fitness apps sync user steps to on-chain reward systems. Music platforms track listener activity across devices.</p>
+                    <div class="success">
+                        <div class="success-title">Outcome</div>
+                        <p>Real-world adoption of Web3 without friction.</p>
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>DeFi Price Accuracy</h3>
+                    <p>Order books, trades, and pricing data synced in milliseconds across networks. Arbitrage bots don't get an edge over average users.</p>
+                    <div class="success">
+                        <div class="success-title">Outcome</div>
+                        <p>Fairer, faster, and safer DeFi for all participants.</p>
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>Privacy-Safe Data Sync</h3>
+                    <p>Users choose "Shielded Sync Mode" to privately sync medical records or IDs. They control who can access data and for how long.</p>
+                    <div class="success">
+                        <div class="success-title">Outcome</div>
+                        <p>Personal data flows safely across borders, apps, and services without leaks.</p>
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-vote-yea"></i>
+                    </div>
+                    <h3>DAO Coordination</h3>
+                    <p>Voting windows and quorum statuses update in real-time across all platforms. Timestamp consensus ensures trust in vote timing.</p>
+                    <div class="success">
+                        <div class="success-title">Outcome</div>
+                        <p>Coordinated governance with no delays or disputes.</p>
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Humanitarian Aid</h3>
+                    <p>Donations, beneficiary lists, and delivery logs synced across ground teams and HQ. Even low-power mobile devices can verify and sync.</p>
+                    <div class="success">
+                        <div class="success-title">Outcome</div>
+                        <p>Radical transparency and accountability in crisis zones.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Roadmap & Next Steps</h2>
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-road"></i> Our Journey
+                </h3>
+                <h4>Q2 2025 – Q4 2025: Research & Design</h4>
+                <p>Core research, architecture finalization, UI/UX design, and early partnership development.</p>
+                
+                <h4>Q1 2026: Testnet Launch</h4>
+                <p>Public testnet rollout, bug bounties, early partner integrations, and beta SynkPass distribution.</p>
+                
+                <h4>Q2 2026: Mainnet & TGE</h4>
+                <p>Token Generation Event, SynkPass NFT drop, community growth initiatives, and mainnet activation.</p>
+                
+                <h4>2027 and Beyond: Full DAO Handoff</h4>
+                <p>Governance transition, Layer-2 scaling, full interoperability, and global adoption across industries.</p>
+                
+                <div class="success">
+                    <div class="success-title">The Vision</div>
+                    <p>By 2027, WarpSynk will be a global backbone for decentralized data synchronization, trusted across millions of devices, applications, and industries.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Get Involved</h2>
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-rocket"></i> Join the Sync Revolution
+                </h3>
+                <p>WarpSynk is more than a protocol — it's a movement toward digital flow sovereignty where every user, app, and machine has the right to sync without relying on centralized giants.</p>
+                
+                <div class="hero-actions">
+                    <a href="docs.html" class="btn">
+                        <i class="fas fa-book"></i> Read Full Documentation
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-code"></i> Developer Resources
+                    </a>
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-users"></i> Join Community
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 WarpSynk Protocol. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#"><i class="fab fa-discord"></i> Discord</a>
+                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#"><i class="fab fa-telegram"></i> Telegram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all content sections
+        document.querySelectorAll('.content-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Tokenomics Chart
+        const tokenomicsChart = new Chart(document.getElementById('tokenomicsChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Community & Airdrop', 'Ecosystem Growth', 'Liquidity & Exchanges', 'Team & Advisors', 'Protocol Reserve'],
+                datasets: [{
+                    data: [50, 25, 10, 10, 5],
+                    backgroundColor: [
+                        '#8a2be2',
+                        '#00ffaa',
+                        '#00b4ff',
+                        '#6a1b9a',
+                        '#ff3d71'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#f0f0f5',
+                            font: {
+                                size: 12
+                            },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.parsed}%`;
+                            }
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Update chart on window resize for better responsiveness
+        window.addEventListener('resize', function() {
+            tokenomicsChart.resize();
+        });
+    </script>
+</body>
+</html>
