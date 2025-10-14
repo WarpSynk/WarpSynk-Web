@@ -780,7 +780,7 @@
                 <a href="index.html"><i class="fas fa-home"></i> Home</a>
                 <a href="docs.html" class="active"><i class="fas fa-book"></i> Documentation</a>
                 <a href="#"><i class="fas fa-code"></i> Developer</a>
-                <a href="#"><i class="fas fa-users"></i> Community</a>
+                <a href="t.me/WarpSynk"><i class="fas fa-users"></i> Community</a>
             </nav>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -2042,9 +2042,29 @@
                     <a href="#" class="btn btn-secondary">
                         <i class="fas fa-download"></i> Download PDF
                     </a>
-                    <a href="#" class="btn btn-outline">
-                        <i class="fas fa-share-alt"></i> Share Documentation
-                    </a>
+                 <a href="#" id="shareBtn" class="btn btn-outline">
+  <i class="fas fa-share-alt"></i> Share Documentation
+</a>
+
+<script>
+const shareData = {
+  title: "WarpSynk Documentation",
+  text: "Read the WarpSynk Protocol documentation.",
+  url: "https://warpsynk.xyz/docs.html"
+};
+
+document.getElementById("shareBtn").addEventListener("click", async (e) => {
+  e.preventDefault();
+  if (navigator.share) {
+    await navigator.share(shareData);
+  } else {
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareData.text)}&url=${encodeURIComponent(shareData.url)}`,
+      "_blank"
+    );
+  }
+});
+</script>
                 </div>
             </main>
         </div>
@@ -2056,10 +2076,10 @@
                 &copy; 2025 WarpSynk Protocol. All rights reserved.
             </div>
             <div class="footer-links">
-                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="#"><i class="fab fa-discord"></i> Discord</a>
-                <a href="#"><i class="fab fa-github"></i> GitHub</a>
-                <a href="#"><i class="fab fa-telegram"></i> Telegram</a>
+                <a href="x.com/WarpSynk"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="discord.com/WarpSynk00"><i class="fab fa-discord"></i> Discord</a>
+                <a href="github.com/WarpSynk00"><i class="fab fa-github"></i> GitHub</a>
+                <a href="t.me/WarpSynk"><i class="fab fa-telegram"></i> Telegram</a>
             </div>
         </div>
     </footer>
