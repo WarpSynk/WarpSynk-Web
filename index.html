@@ -7,7 +7,103 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Base Styles & Variables */
+        /* Add modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: rgba(20, 20, 30, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            position: relative;
+            text-align: center;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--secondary);
+        }
+
+        .modal h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .modal p {
+            color: rgba(240, 240, 245, 0.8);
+            line-height: 1.5;
+        }
+
+        /* Enhanced responsive styles for tokenomics chart */
+        @media (max-width: 992px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+                padding: 15px;
+            }
+            
+            /* Enhanced use case slider for mobile */
+            .usecase-slider {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .chart-container {
+                height: 250px;
+            }
+            
+            .usecase-slider {
+                height: 300px;
+            }
+            
+            .slide-overlay {
+                padding: 20px;
+            }
+            
+            .slide-overlay h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart-container {
+                height: 200px;
+            }
+        }
+
+        /* Rest of your original CSS remains exactly the same */
         :root {
             --primary: #8a2be2;
             --primary-dark: #6a1b9a;
@@ -1183,6 +1279,7 @@
                         <a href="litepaper.html">SynkPaper</a>
                         <a href="docs.html">Documentation</a>
                         <a href="https://GitHub.com/WarpSynk 001">GitHub</a>
+                        <a href="#" id="audits-link">Audits</a>
                     </div>
                 </div>
                 <a href="#tokenomics">Tokenomics</a>
@@ -1369,6 +1466,13 @@
                         <p>DAO governance handoff, Layer-2 integrations, and global adoption campaigns</p>
                     </div>
                 </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q2 2027 and Beyond</div>
+                    <div class="timeline-content">
+                        <h3>Global Decentralized Sync Protocol</h3>
+                        <p>Global decentralized data sync protocol governed by WarpDAO</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1381,7 +1485,7 @@
                 <div class="slide" style="background-image: url('https://via.placeholder.com/1200x600');">
                     <div class="slide-overlay">
                         <h3>Cross-Chain Wallet Sync</h3>
-                        <p>Multi-chain Game State keeps your game data consistent across chains and devices. It syncs your items, scores, and character progress, so you don’t lose anything when switching networks or devices. Your inventory, stats, and achievements remain up-to-date, making cross-chain and cross-device play seamless and reliable.
+                        <p>Multi-chain Game State keeps your game data consistent across chains and devices. It syncs your items, scores, and character progress, so you don't lose anything when switching networks or devices. Your inventory, stats, and achievements remain up-to-date, making cross-chain and cross-device play seamless and reliable.
 </p>
                     </div>
                 </div>
@@ -1402,12 +1506,12 @@
                 <div class="cta-card">
                     <h3>Build With Us</h3>
                     <p>Access developer docs and SDKs to integrate WarpSynk into your applications</p>
-                    <a href="#" class="cta-secondary">Developer Portal</a>
+                    <a href="#" class="cta-secondary" id="developer-portal-btn">Developer Portal</a>
                 </div>
                 <div class="cta-card">
                     <h3>Run a Node</h3>
                     <p>Earn $WSYNK by running a SynkNode on testnet and help secure the network</p>
-                    <a href="#" class="cta-secondary">Node Setup Guide</a>
+                    <a href="#" class="cta-secondary" id="node-guide-btn">Node Setup Guide</a>
                 </div>
                 <div class="cta-card">
                     <h3>Stay Updated</h3>
@@ -1436,7 +1540,7 @@
                         <h4>Protocol</h4>
                         <a href="litepaper.html">SynkPaper</a>
                         <a href="https://github.com/WarpSynk001">GitHub</a>
-                        <a href="">Audits</a>
+                        <a href="#" id="audits-link-footer">Audits</a>
                         <a href="roadmap.html">Roadmap</a>
                     </div>
                     <div class="link-group">
@@ -1464,6 +1568,31 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modals -->
+    <div class="modal" id="developerPortalModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeDeveloperPortal">&times;</button>
+            <h3>Developer Portal</h3>
+            <p>The Developer Portal is under maintenance. It will be available soon.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="nodeGuideModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeNodeGuide">&times;</button>
+            <h3>Node Setup Guide</h3>
+            <p>The SynkNode infrastructure is undergoing final external security audits and the node setup guide will be available soon.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="auditsModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeAudits">&times;</button>
+            <h3>Security Audits</h3>
+            <p>Security audit reports under compilation by the security team.</p>
+        </div>
+    </div>
 
     <script>
         // Mobile Menu Toggle
@@ -1499,6 +1628,65 @@
                     document.querySelector('.nav-links').classList.remove('active');
                 }
             });
+        });
+
+        // Modal functionality
+        const developerPortalBtn = document.getElementById('developer-portal-btn');
+        const developerPortalModal = document.getElementById('developerPortalModal');
+        const closeDeveloperPortal = document.getElementById('closeDeveloperPortal');
+        
+        developerPortalBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            developerPortalModal.style.display = 'flex';
+        });
+        
+        closeDeveloperPortal.addEventListener('click', function() {
+            developerPortalModal.style.display = 'none';
+        });
+
+        const nodeGuideBtn = document.getElementById('node-guide-btn');
+        const nodeGuideModal = document.getElementById('nodeGuideModal');
+        const closeNodeGuide = document.getElementById('closeNodeGuide');
+        
+        nodeGuideBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            nodeGuideModal.style.display = 'flex';
+        });
+        
+        closeNodeGuide.addEventListener('click', function() {
+            nodeGuideModal.style.display = 'none';
+        });
+
+        const auditsLink = document.getElementById('audits-link');
+        const auditsLinkFooter = document.getElementById('audits-link-footer');
+        const auditsModal = document.getElementById('auditsModal');
+        const closeAudits = document.getElementById('closeAudits');
+        
+        auditsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            auditsModal.style.display = 'flex';
+        });
+        
+        auditsLinkFooter.addEventListener('click', function(e) {
+            e.preventDefault();
+            auditsModal.style.display = 'flex';
+        });
+        
+        closeAudits.addEventListener('click', function() {
+            auditsModal.style.display = 'none';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === developerPortalModal) {
+                developerPortalModal.style.display = 'none';
+            }
+            if (e.target === nodeGuideModal) {
+                nodeGuideModal.style.display = 'none';
+            }
+            if (e.target === auditsModal) {
+                auditsModal.style.display = 'none';
+            }
         });
 
         // Token Distribution Chart
@@ -1589,7 +1777,7 @@
             function renderSlide(index) {
                 const useCase = useCases[index];
                 sliderContainer.innerHTML = `
-                    <div class="slide" style="background-image: url('${useCase.image}');">
+                    <div class="slide" style="background-image: url('https://via.placeholder.com/1200x600');">
                         <div class="slide-overlay">
                             <h3>${useCase.title}</h3>
                             <p>${useCase.description}</p>
